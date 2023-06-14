@@ -6,8 +6,8 @@ kaboom({
     letterbox: true
 })
 
-loadSpriteAtlas('./assets/Player.png' ,{
-    'idle-sprites': {
+loadSpriteAtlas('./assets/Player.png', {
+    'idle': {
         x: 0,
         y: 16,
         width: 192,
@@ -22,7 +22,21 @@ loadSpriteAtlas('./assets/Player.png' ,{
                 speed: 8
             }
         }
-    }
+    },
+    'run': {
+        x: 0, y: 64, width: 192, height: 16,
+        sliceX: 4, sliceY: 1,
+        anims: {
+            'run': {
+                from: 0,
+                to: 3,
+                loop: true,
+                speed: 8
+            }
+        }
+    },
+    'jump': {x: 16, y: 112, width: 16, height: 16},
+    'fall': {x: 63, y: 112, width: 16, height: 16}
 })
 
-add([sprite('idle-sprites', {anim: 'idle'}), pos(center()), scale(4), area()])
+add([sprite('fall'), pos(center()), scale(4), area()])

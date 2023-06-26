@@ -1,9 +1,14 @@
 export class Player {
+    heightDelta = 0
+    isMoving = false
+
     constructor(posX, posY, speed) {
         this.loadPlayerAnims()
         this.makePlayer(posX, posY)
         this.speed = speed
+        this.previousHeight = this.gameObj.pos.y
         this.setPlayerControls()
+        this.update()
     }
 
     loadPlayerAnims() {
@@ -20,7 +25,9 @@ export class Player {
                     from: 4,
                     to: 7,
                     loop: true
-                } 
+                },
+                'jump-up': {from: 8, to: 8},
+                'jump-down': {from: 9, to: 9} 
             }
         })
     }
@@ -41,20 +48,52 @@ export class Player {
             if (this.gameObj.curAnim() !== 'run') this.gameObj.play('run')
             this.gameObj.flipX = true
             this.gameObj.move(-this.speed, 0)
+            this.isMoving = true
         })
 
         onKeyDown('right', () => {
             if (this.gameObj.curAnim() !== 'run') this.gameObj.play('run')
             this.gameObj.flipX = false
             this.gameObj.move(this.speed, 0)
+            this.isMoving = true
         })
 
         onKeyPress('space', () => {
-            if (this.gameObj.isGrounded()) this.gameObj.jump()
+            if (this.gameObj.isGrounded()) {
+                this.gameObj.jump()
+                this.isMoving = true
+            }
         })
 
         onKeyRelease(() => {
-            if (isKeyReleased('right') || isKeyReleased('left')) this.gameObj.play('idle')
+            if (isKeyReleased('right') || isKeyReleased('left')) {
+                this.isMoving = false
+                this.gameObj.play('idle')
+            }
+        })
+    }
+
+    update() {
+        onUpdate(() => {
+            this.heightDelta = this.previousHeight - this.gameObj.pos.y
+            debug.log(this.previousHeight === this.gameObj.pos.y)
+            this.previousHeight = this.gameObj.pos.y
+ 
+            if (!this.isMoving && this.gameObj.curAnim() !== 'idle') {
+                this.gameObj.play('idle')
+            }
+
+            if (!this.gameObj.isGrounded() 
+            && this.heightDelta > 0 
+            && this.gameObj.curAnim() !== 'jump-up') {
+                this.gameObj.play('jump-up')
+            }
+
+            if (!this.gameObj.isGrounded() 
+            && this.heightDelta < 0 
+            && this.gameObj.curAnim() !== 'jump-down') {
+                this.gameObj.play('jump-down')
+            }
         })
     }
 }

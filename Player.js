@@ -26,8 +26,8 @@ export class Player {
                     to: 7,
                     loop: true
                 },
-                'jump-up': {from: 8, to: 8},
-                'jump-down': {from: 9, to: 9} 
+                'jump-up': 8,
+                'jump-down': 9 
             }
         })
     }
@@ -59,16 +59,13 @@ export class Player {
         })
 
         onKeyPress('space', () => {
-            if (this.gameObj.isGrounded()) {
-                this.gameObj.jump()
-                this.isMoving = true
-            }
+            if (this.gameObj.isGrounded()) this.gameObj.jump()
         })
 
         onKeyRelease(() => {
             if (isKeyReleased('right') || isKeyReleased('left')) {
-                this.isMoving = false
                 this.gameObj.play('idle')
+                this.isMoving = false
             }
         })
     }
@@ -76,10 +73,9 @@ export class Player {
     update() {
         onUpdate(() => {
             this.heightDelta = this.previousHeight - this.gameObj.pos.y
-            debug.log(this.previousHeight === this.gameObj.pos.y)
             this.previousHeight = this.gameObj.pos.y
  
-            if (!this.isMoving && this.gameObj.curAnim() !== 'idle') {
+            if(!this.isMoving && this.gameObj.curAnim() !== 'idle') {
                 this.gameObj.play('idle')
             }
 

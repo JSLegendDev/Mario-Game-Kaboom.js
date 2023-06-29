@@ -1,10 +1,10 @@
 export class Camera {
     attachedObj = null
     
-    attach(gameObj) {
+    attach(gameObj, offsetX = 0, offsetY = 0) {
         this.attachedObj = gameObj
         onUpdate(() => {
-            camPos(this.attachedObj.pos.x, this.attachedObj.pos.y)
+            camPos(this.attachedObj.pos.x + offsetX, this.attachedObj.pos.y + offsetY)
         })
     }
 }

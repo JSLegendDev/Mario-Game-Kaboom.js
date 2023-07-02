@@ -39,7 +39,8 @@ export class Player {
             anchor('center'),
             pos(x, y),
             scale(4),
-            body()
+            body(),
+            'player'
         ])
     }
 

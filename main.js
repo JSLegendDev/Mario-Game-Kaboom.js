@@ -2,6 +2,7 @@ import kaboom from "https://unpkg.com/kaboom@3000.0.14/dist/kaboom.mjs"
 import { Player } from "./Player.js"
 import { Camera } from "./Camera.js"
 import { World, World1 } from "./World.js"
+import { level1Layout, level1Mappings } from "./content/levels/level1Layout.js"
 
 kaboom({
     width: 1280,
@@ -13,7 +14,7 @@ scene('world-1', () => {
     setGravity(1200)
     const world1 = new World1()
     world1.loadMapAssets()
-    world1.drawMap()
+    world1.drawMap(level1Layout, level1Mappings)
     const player = new Player(center().x, center().y, 300)
     world1.enablePassthrough()
     const camera = new Camera()

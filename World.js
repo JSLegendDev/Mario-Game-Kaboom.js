@@ -37,11 +37,38 @@ export class World1 extends World {
                 'mr-2': 8
             }
         })
+        loadSprite('water', 'assets/Water.png', {
+            sliceX: 8,
+            sliceY: 1,
+            anims: {
+                'wave': {
+                    from: 0,
+                    to: 7,
+                    speed: 16,
+                    loop: true,
+                },
+                'wave-reversed': {
+                    from:  7,
+                    to: 0,
+                    speed: 16,
+                    loop: true
+                }
+            }
+        })
     }
 
     enablePassthrough() {
         const passthroughTiles = get('passthrough', {recursive: true})
         const onewayTiles = get('oneway', {recursive: true})
+        const gaps = get('platform-gap', {recursive: true})
+
+        gaps.forEach(gap => {
+            gap.onCollide('player', () => {
+                passthroughTiles.forEach(tile => {
+                    tile.use(body({isStatic: true}))
+                })
+            })
+        })
 
         onewayTiles.forEach(tile => {
             tile.onCollide('player', () => {
@@ -56,92 +83,21 @@ export class World1 extends World {
                 })
             })
         })
-
-        const passthroughTiles0 = get('passthrough-0', {recursive: true})
-        const onewayTiles0 = get('oneway-0', {recursive: true})
-        
-        onewayTiles0.forEach(tile => {
-            tile.onCollide('player', () => {
-                passthroughTiles0.forEach(tile => tile.unuse('body'))
-            })
-        })
-
-        passthroughTiles0.forEach(tile => {
-            tile.onCollideEnd('player', () => {
-                passthroughTiles0.forEach(tile => {
-                    tile.use(body({isStatic: true}))
-                })
-            })
-        })
     }
 
-    drawMap() {
-        this.mapping = {
-            0: () => [sprite('grass-tileset', {anim: 'tl'}), area(), body({isStatic: true})],
-            1: () => [sprite('grass-tileset', {anim: 'tm'}), area(), body({isStatic: true})],
-            2: () => [sprite('grass-tileset', {anim: 'tr'}), area(), body({isStatic: true})],
-            3: () => [sprite('grass-tileset', {anim: 'ml'}), area(), body({isStatic: true})],
-            4: () => [sprite('grass-tileset', {anim: 'mm'}), area(), body({isStatic: true})],
-            5: () => [sprite('grass-tileset', {anim: 'mr'}), area(), body({isStatic: true})],
-            6: () => [sprite('grass-tileset', {anim: 'ml-2'}), area(), body({isStatic: true})],
-            7: () => [sprite('grass-tileset', {anim: 'mm-2'}), area(), body({isStatic: true})],
-            8: () => [sprite('grass-tileset', {anim: 'mr-2'}), area(), body({isStatic: true})],
-            9: () => [sprite('grass-oneway-tileset', {anim: 'tl'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough', body({isStatic: true})],
-            'a': () => [sprite('grass-oneway-tileset', {anim: 'tm'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough', body({isStatic: true})],
-            'b': () => [sprite('grass-oneway-tileset', {anim: 'tr'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough', body({isStatic: true})],
-            'c': () => [sprite('grass-oneway-tileset', {anim: 'ml'}), area(), 'oneway'],
-            'd': () => [sprite('grass-oneway-tileset', {anim: 'mm'}), area(), 'oneway'],
-            'e': () => [sprite('grass-oneway-tileset', {anim: 'mr'}), area(), 'oneway'],
-            'f': () => [sprite('grass-oneway-tileset', {anim: 'ml'}), area(), 'oneway-0'],
-            'g': () => [sprite('grass-oneway-tileset', {anim: 'mm'}), area(), 'oneway-0'],
-            'h': () => [sprite('grass-oneway-tileset', {anim: 'mr'}), area(), 'oneway-0'],
-            'i': () => [sprite('grass-oneway-tileset', {anim: 'tl'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough-0', body({isStatic: true})],
-            'j': () => [sprite('grass-oneway-tileset', {anim: 'tm'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough-0', body({isStatic: true})],
-            'k': () => [sprite('grass-oneway-tileset', {anim: 'tr'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough-0', body({isStatic: true})],
+    drawMap(levelLayout, mappings) {
+        this.background = add([sprite('forest-background'), fixed(), scale(4)])
+        
+        const layerSettings = {
+            tileWidth: 16,
+            tileHeight: 12,
+            tiles: mappings   
         }
 
-        this.background = add([sprite('forest-background'), fixed(), scale(4)])
-        this.map = [
-            addLevel([
-                '                                ',
-                '                                ',
-                '                                ',
-                '                                ',
-                '           ijjk                 ',
-                '           fggh                 ',
-                '           fggh                 ',
-                '           fggh                 ',
-                '           fggh                 ',
-                '           fggh                 ',
-                '                                ',
-                '                                ',
-                '                                ',
-                '                                '
-            ],{
-                tileWidth: 16,
-                tileHeight: 12,
-                tiles: this.mapping   
-            }),
-            addLevel([
-                '                                ',
-                '                                ',
-                '                                ',
-                '                                ',
-                '                                ',
-                '             9aab               ',
-                '             cdde               ',
-                '        9aab cdde               ',
-                '        cdde cdde               ',
-                '        cdde cdde               ',
-                '011111111111111111112  011111112',
-                '344444444444444444445  344444445',
-                '677777777777777777778  677777778'
-            ],{
-                tileWidth: 16,
-                tileHeight: 12,
-                tiles: this.mapping   
-            })
-        ]
+        this.map = []
+        for (const layerLayout of levelLayout) {
+            this.map.push(addLevel(layerLayout, layerSettings))
+        }
 
         for (const layer of this.map) {
             layer.use(scale(4))

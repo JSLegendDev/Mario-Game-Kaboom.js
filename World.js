@@ -42,6 +42,7 @@ export class World1 extends World {
     enablePassthrough() {
         const passthroughTiles = get('passthrough', {recursive: true})
         const onewayTiles = get('oneway', {recursive: true})
+
         onewayTiles.forEach(tile => {
             tile.onCollide('player', () => {
                 passthroughTiles.forEach(tile => tile.unuse('body'))
@@ -51,6 +52,23 @@ export class World1 extends World {
         passthroughTiles.forEach(tile => {
             tile.onCollideEnd('player', () => {
                 passthroughTiles.forEach(tile => {
+                    tile.use(body({isStatic: true}))
+                })
+            })
+        })
+
+        const passthroughTiles0 = get('passthrough-0', {recursive: true})
+        const onewayTiles0 = get('oneway-0', {recursive: true})
+        
+        onewayTiles0.forEach(tile => {
+            tile.onCollide('player', () => {
+                passthroughTiles0.forEach(tile => tile.unuse('body'))
+            })
+        })
+
+        passthroughTiles0.forEach(tile => {
+            tile.onCollideEnd('player', () => {
+                passthroughTiles0.forEach(tile => {
                     tile.use(body({isStatic: true}))
                 })
             })
@@ -74,7 +92,12 @@ export class World1 extends World {
             'c': () => [sprite('grass-oneway-tileset', {anim: 'ml'}), area(), 'oneway'],
             'd': () => [sprite('grass-oneway-tileset', {anim: 'mm'}), area(), 'oneway'],
             'e': () => [sprite('grass-oneway-tileset', {anim: 'mr'}), area(), 'oneway'],
-            '#': () => [rect(16,12), area(), opacity(0), 'passthrough-trigger']
+            'f': () => [sprite('grass-oneway-tileset', {anim: 'ml'}), area(), 'oneway-0'],
+            'g': () => [sprite('grass-oneway-tileset', {anim: 'mm'}), area(), 'oneway-0'],
+            'h': () => [sprite('grass-oneway-tileset', {anim: 'mr'}), area(), 'oneway-0'],
+            'i': () => [sprite('grass-oneway-tileset', {anim: 'tl'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough-0', body({isStatic: true})],
+            'j': () => [sprite('grass-oneway-tileset', {anim: 'tm'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough-0', body({isStatic: true})],
+            'k': () => [sprite('grass-oneway-tileset', {anim: 'tr'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough-0', body({isStatic: true})],
         }
 
         this.background = add([sprite('forest-background'), fixed(), scale(4)])
@@ -84,12 +107,12 @@ export class World1 extends World {
                 '                                ',
                 '                                ',
                 '                                ',
-                '                                ',
-                '           9aab                 ',
-                '           cdde                 ',
-                '           cdde                 ',
-                '           cdde                 ',
-                '           cdde                 ',
+                '           ijjk                 ',
+                '           fggh                 ',
+                '           fggh                 ',
+                '           fggh                 ',
+                '           fggh                 ',
+                '           fggh                 ',
                 '                                ',
                 '                                ',
                 '                                ',
@@ -105,8 +128,8 @@ export class World1 extends World {
                 '                                ',
                 '                                ',
                 '                                ',
-                '                                ',
                 '             9aab               ',
+                '             cdde               ',
                 '        9aab cdde               ',
                 '        cdde cdde               ',
                 '        cdde cdde               ',

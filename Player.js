@@ -86,7 +86,7 @@ export class Player {
     }
 
     update() {
-        onUpdate(() => {
+        onUpdate(() => {    
             this.heightDelta = this.previousHeight - this.gameObj.pos.y
             this.previousHeight = this.gameObj.pos.y
  
@@ -110,6 +110,12 @@ export class Player {
                 this.respawnPlayer()
                 this.isRespawning = true
             }
+        })
+    }
+
+    updateLives(livesCountComp) {
+        onUpdate(() => {
+            livesCountComp.text = `Lives: ${this.lives}`
         })
     }
 }

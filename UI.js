@@ -15,4 +15,8 @@ export class UI {
             pos(10,10)
         ])
     }
+
+    getLiveCountUI() {
+        return this.livesCount
+    }
 }

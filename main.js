@@ -23,6 +23,7 @@ scene('world-1', () => {
     const UIManager = new UI()
     UIManager.loadUIAssets()
     UIManager.displayLives(player)
+    player.updateLives(UIManager.getLiveCountUI())
 })
 
 go('world-1')

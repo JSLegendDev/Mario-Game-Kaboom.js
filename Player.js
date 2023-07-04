@@ -1,6 +1,8 @@
 export class Player {
     heightDelta = 0
     isMoving = false
+    isRespawning = false
+    lives = 3
 
     constructor(posX, posY, speed) {
         this.loadPlayerAnims()
@@ -33,6 +35,8 @@ export class Player {
     }
 
     makePlayer(x, y) {
+        this.initialX = x
+        this.initialY = y
         this.gameObj = add([
             sprite('player', {anim: 'idle'}),
             area({shape: new Rect(vec2(0,3), 10, 10)}),
@@ -48,14 +52,14 @@ export class Player {
         onKeyDown('left', () => {
             if (this.gameObj.curAnim() !== 'run') this.gameObj.play('run')
             this.gameObj.flipX = true
-            this.gameObj.move(-this.speed, 0)
+            if (!this.isRespawning) this.gameObj.move(-this.speed, 0)
             this.isMoving = true
         })
 
         onKeyDown('right', () => {
             if (this.gameObj.curAnim() !== 'run') this.gameObj.play('run')
             this.gameObj.flipX = false
-            this.gameObj.move(this.speed, 0)
+            if (!this.isRespawning)this.gameObj.move(this.speed, 0)
             this.isMoving = true
         })
 
@@ -69,6 +73,16 @@ export class Player {
                 this.isMoving = false
             }
         })
+    }
+
+    respawnPlayer() {
+        setTimeout(() => {
+            if (this.lives > 0) {
+                this.gameObj.pos = vec2(this.initialX, this.initialY)
+                this.isRespawning = false
+                this.lives-- 
+            }
+        }, 2000)
     }
 
     update() {
@@ -90,6 +104,11 @@ export class Player {
             && this.heightDelta < 0 
             && this.gameObj.curAnim() !== 'jump-down') {
                 this.gameObj.play('jump-down')
+            }
+
+            if (this.gameObj.pos.y > 1000 && !this.isRespawning) {
+                this.respawnPlayer()
+                this.isRespawning = true
             }
         })
     }

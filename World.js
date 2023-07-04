@@ -41,12 +41,6 @@ export class World1 extends World {
             sliceX: 8,
             sliceY: 1,
             anims: {
-                'wave': {
-                    from: 0,
-                    to: 7,
-                    speed: 16,
-                    loop: true,
-                },
                 'wave-reversed': {
                     from:  7,
                     to: 0,

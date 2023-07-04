@@ -48,6 +48,14 @@ export class Player {
         ])
     }
 
+    enablePassthrough() {
+        this.gameObj.onBeforePhysicsResolve((collision) => {
+            if (collision.target.is('passthrough') && this.gameObj.isJumping()) {
+                collision.preventResolution()
+            }
+        })
+    }
+
     setPlayerControls() {
         onKeyDown('left', () => {
             if (this.gameObj.curAnim() !== 'run') this.gameObj.play('run')

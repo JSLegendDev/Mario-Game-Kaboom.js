@@ -11,27 +11,41 @@ export const level1Mappings = {
     9: () => [sprite('grass-oneway-tileset', {anim: 'tl'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough', body({isStatic: true})],
     'a': () => [sprite('grass-oneway-tileset', {anim: 'tm'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough', body({isStatic: true})],
     'b': () => [sprite('grass-oneway-tileset', {anim: 'tr'}), area({shape: new Rect(vec2(0), 16, 3)}), 'passthrough', body({isStatic: true})],
-    'c': () => [sprite('grass-oneway-tileset', {anim: 'ml'}), area(), 'oneway'],
-    'd': () => [sprite('grass-oneway-tileset', {anim: 'mm'}), area(), 'oneway'],
-    'e': () => [sprite('grass-oneway-tileset', {anim: 'mr'}), area(), 'oneway'],
-    '#': () => [rect(16,12), opacity(0), area(), 'platform-gap'],
-    'v': () => [sprite('water', {anim: 'wave-reversed'})]
+    'c': () => [sprite('grass-oneway-tileset', {anim: 'ml'}), area()],
+    'd': () => [sprite('grass-oneway-tileset', {anim: 'mm'}), area()],
+    'e': () => [sprite('grass-oneway-tileset', {anim: 'mr'}), area()],
+    'v': () => [sprite('water', {anim: 'wave-reversed'})],
+    'o': () => [sprite('bridge'), area(), body({isStatic: true})]
 }
 
 export const level1Layout = [
     [
-        '                                                               ',
-        '                                                               ',
-        '                                                               ',
-        '                                                               ',
-        '                               9aab          9aab              ',
-        '                              #cdde          cdde#             ',
-        '                          9aab#cdde          cdde#9aab         ',
-        '                          cdde#cdde          cdde#cdde         ',
-        '                          cdde#cdde          cdde#cdde         ',
-        '                   011111111111111111112  011111111111111111112',
-        '                   344444444444444444445  344444444444444444445',
-        '                   677777777777777777778  677777777777777777778'
+        '                                                                                         ',
+        '                                                                                         ',
+        '                             9aab                                                        ',
+        '                             cdde                                                        ',
+        '                             cdde                                                        ',
+        '                             cdde                                                        ',
+        '                             cdde                                                        ',
+        '                             cdde                                                        ',
+        '                             cdde                                                        ',
+        '                                                                                         ',
+        '                                                                                         ',
+        '                                                                                         '
+    ],
+    [
+        '                                                                                        ',
+        '                                                                                        ',
+        '                                                                                        ',
+        '                                                                                        ',
+        '                               9aab          9aab                                       ',
+        '                               cdde          cdde                          9aaaboooo9aaab',
+        '                          9aab cdde          cdde 9aab               9aab  cddde    cddde',
+        '                          cdde cdde          cdde cdde               cdde  cddde    cddde',
+        '                          cdde cdde          cdde cdde               cdde  cddde    cddde',
+        '                   011111111111111111112oo011111111111111111112oooo0111111111112    011111111112',
+        '                   344444444444444444445  344444444444444444445    3444444444445    344444444445',
+        '                   677777777777777777778  677777777777777777778    6777777777778    677777777778'
     ],
     [
         '                                                                                         ',
@@ -43,7 +57,7 @@ export const level1Layout = [
         '                                                                                         ',
         '                                                                                         ',
         '                                                                                         ',
-        'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv',
+        'vvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvvv',
         '                                                                                         ',
         '                                                                                         '
     ]

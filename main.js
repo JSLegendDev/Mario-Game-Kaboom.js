@@ -17,7 +17,7 @@ scene('world-1', () => {
     world1.loadMapAssets()
     world1.drawMap(level1Layout, level1Mappings)
     const player = new Player(1500, center().y, 300)
-    world1.enablePassthrough()
+    player.enablePassthrough()
     const camera = new Camera()
     camera.attach(player.gameObj, 0, -200, null, 200)
     const UIManager = new UI()

@@ -1,11 +1,12 @@
 export class World {
-    loadMapAssets() {
-
+    loadGeneralMapAssets() {
+        loadSprite('coin', 'assets/Coin.png')
     }
 }
 
 export class World1 extends World {
     loadMapAssets() {
+        this.loadGeneralMapAssets()
         loadSprite('forest-background', 'assets/Forest_Background_0.png')
         loadSprite('grass-tileset', 'assets/Grass_Tileset.png', {
            sliceX: 3,

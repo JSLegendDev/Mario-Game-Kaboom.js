@@ -18,12 +18,15 @@ scene('world-1', () => {
     world1.drawMap(level1Layout, level1Mappings)
     const player = new Player(1500, center().y, 300)
     player.enablePassthrough()
+    player.enableCoinPickUp()
     const camera = new Camera()
     camera.attach(player.gameObj, 0, -200, null, 200)
     const UIManager = new UI()
     UIManager.loadUIAssets()
-    UIManager.displayLives(player)
-    player.updateLives(UIManager.getLiveCountUI())
+    UIManager.displayLivesCount(player)
+    UIManager.displayCoinCount(player)
+
+    player.updateLives(UIManager.livesCountUI)
 })
 
 go('world-1')

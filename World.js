@@ -42,6 +42,12 @@ export class World1 extends World {
             sliceX: 8,
             sliceY: 1,
             anims: {
+                'wave': {
+                    from: 0,
+                    to: 7,
+                    speed: 16,
+                    loop: true
+                },
                 'wave-reversed': {
                     from:  7,
                     to: 0,
@@ -51,6 +57,14 @@ export class World1 extends World {
             }
         })
         loadSprite('bridge', 'assets/Bridge.png')
+    }
+
+    drawWaves() {
+        let offset = -100
+        for (let i = 0; i < 21; i++) {
+            add([sprite('water', { anim: 'wave' }), pos(offset, 600), scale(4), fixed()])
+            offset += 64
+        }
     }
 
     drawMap(levelLayout, mappings) {
@@ -70,5 +84,7 @@ export class World1 extends World {
         for (const layer of this.map) {
             layer.use(scale(4))
         }
+
+        this.drawWaves()
     }
 }

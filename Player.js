@@ -134,4 +134,10 @@ export class Player {
             livesCountUI.text = `Lives: ${this.lives}`
         })
     }
+
+    updateCoinCount(coinCountUI) {
+        onUpdate(() => {
+            coinCountUI.text = `${this.coins}`
+        })
+    }
 }

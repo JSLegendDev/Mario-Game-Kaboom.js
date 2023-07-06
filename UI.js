@@ -19,15 +19,15 @@ export class UI {
 
     displayCoinCount(player) {
         this.coinCountUI = add([
-            text(`${player.coins}`, {font: 'Round', size: 32}),
+            text(`${player.coins}`, {font: 'Round', size: 50}),
             fixed(),
-            pos(400, 0)
+            pos(70, 50)
         ]) 
         
         this.coinCountUI.add([
             sprite('coin-icon'), 
-            pos(-100, 0),
-            scale(4), 
+            pos(-60, 0),
+            scale(3), 
             fixed()
         ])
 

@@ -12,12 +12,12 @@ kaboom({
 })
 
 scene('world-1', () => {
-    setGravity(1200)
+    setGravity(1400)
     const world1 = new World1()
     world1.loadMapAssets()
     world1.drawMap(level1Layout, level1Mappings)
 
-    const player = new Player(1500, center().y, 300)
+    const player = new Player(1500, center().y, 400)
     player.enablePassthrough()
     player.enableCoinPickUp()
 

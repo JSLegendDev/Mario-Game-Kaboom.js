@@ -2,7 +2,8 @@ import kaboom from "https://unpkg.com/kaboom@3000.0.14/dist/kaboom.mjs"
 import { Player } from "./Player.js"
 import { Camera } from "./Camera.js"
 import { World1 } from "./World.js"
-import { level1Layout, level1Mappings } from "./content/levels/level1Layout.js"
+import { level1Layout, level1Mappings } from "./content/world1/level1Layout.js"
+import { world1Config } from "./content/world1/config.js"
 import { UI } from "./UI.js"
 
 kaboom({
@@ -17,7 +18,11 @@ scene('world-1', () => {
     world1.loadMapAssets()
     world1.drawMap(level1Layout, level1Mappings)
 
-    const player = new Player(1500, center().y, 400)
+    const player = new Player(
+        world1Config.playerStartPosX, 
+        world1Config.playerStartPosY, 
+        world1Config.playerSpeed
+    )
     player.enablePassthrough()
     player.enableCoinPickUp()
 

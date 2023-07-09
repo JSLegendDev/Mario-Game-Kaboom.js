@@ -5,6 +5,7 @@ import { World1 } from "./World.js"
 import { level1Layout, level1Mappings } from "./content/world1/level1Layout.js"
 import { world1Config } from "./content/world1/config.js"
 import { UI } from "./UI.js"
+import { Flames } from "./Flames.js"
 
 kaboom({
     width: 1280,
@@ -17,7 +18,9 @@ scene('world-1', () => {
     const world1 = new World1()
     world1.loadMapAssets()
     world1.drawMap(level1Layout, level1Mappings)
-
+    const flames = new Flames()
+    flames.setMovementPattern()
+    
     const player = new Player(
         world1Config.playerStartPosX, 
         world1Config.playerStartPosY, 

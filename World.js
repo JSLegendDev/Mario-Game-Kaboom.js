@@ -1,3 +1,5 @@
+import { Flames } from "./Flames.js"
+
 export class World {
     loadGeneralMapAssets() {
         loadSprite('coin', 'assets/Coin.png')
@@ -99,6 +101,12 @@ export class World1 extends World {
         for (const layer of this.map) {
             layer.use(scale(4))
         }
+
+        const flames = new Flames([
+            vec2(2595, 600),
+            vec2(2655, 500)
+        ], 2)
+        flames.setMovementPattern()
 
         this.drawWaves()
     }

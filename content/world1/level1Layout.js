@@ -15,13 +15,7 @@ export const level1Mappings = {
     'd': () => [sprite('grass-oneway-tileset', {anim: 'mm'}), offscreen()],
     'e': () => [sprite('grass-oneway-tileset', {anim: 'mr'}), offscreen()],
     'o': () => [sprite('bridge'), area(), body({isStatic: true}), offscreen()],
-    '@': () => [sprite('coin'), area(), 'coin', offscreen()],
-    'f': () => [
-        sprite('flame-1', {anim: 'burning'}),
-        area({shape: new Rect(vec2(0), 12, 12)}), 
-        anchor('center'),
-        'flames'
-    ]
+    '@': () => [sprite('coin'), area(), 'coin', offscreen()]
 }
 
 export const level1Layout = [
@@ -48,11 +42,11 @@ export const level1Layout = [
         '                           @   9aab          9aab                      @                        ',
         '                               cdde          cdde                          9aaaboooo9aaab       ',
         '                          9aab cdde          cdde 9aab               9aab  cddde    cddde       ',
-        '                    f     cdde cdde          cdde cdde          @    cdde  cddde    cddde    @@ ',
-        '                          cdde cdde          cdde cdde               cdde  cddde    cddde       ',
+        '                          cdde cdde          cdde cdde          @    cdde  cddde    cddde    @@ ',
+        '                    t     cdde cdde          cdde cdde               cdde  cddde    cddde       ',
         '                   011111111111111111112oo011111111111111111112oooo0111111111112    011111111112',
         '                   344444444444444444445  344444444444444444445    3444444444445    344444444445',
-        '                   677777777777777777778ff677777777777777777778ffff6777777777778    677777777778'
+        '                   677777777777777777778  677777777777777777778    6777777777778    677777777778'
     ],
     [
         '                                                                                                ',

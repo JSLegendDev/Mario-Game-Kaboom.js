@@ -1,14 +1,24 @@
 export class Flames {
-    constructor() {
-        this.flames = get('flames', { recursive: true })
+    constructor(positions, type) {
+        this.flames = []
+        for (const position of positions) {
+            this.flames.push(add([
+                sprite(`flame-${type}`, {anim: 'burning'}),
+                area({shape: new Rect(vec2(0), 12, 12)}), 
+                anchor('center'),
+                pos(position),
+                scale(4),
+                rotate(),
+                state('launch', ['launch', 'rotate', 'fall']),
+                'flames'
+            ]))
+        }
     }
 
     setMovementPattern() {
         for (const flame of this.flames) {
-            flame.use(state('launch', ['launch', 'rotate', 'fall']))
-            flame.use(rotate())
             flame.onStateEnter('launch', async () => {
-                await tween(flame.pos.y, flame.pos.y - 100, 1, (posY) => flame.pos.y = posY, easings.linear)
+                await tween(flame.pos.y, flame.pos.y - 300, 1, (posY) => flame.pos.y = posY, easings.linear)
                 flame.enterState('rotate', 'fall')
             })
 
@@ -18,7 +28,7 @@ export class Flames {
             })
 
             flame.onStateEnter('fall', async () => {
-                await tween(flame.pos.y, flame.pos.y + 100, 1, (posY) => flame.pos.y = posY, easings.linear)
+                await tween(flame.pos.y, flame.pos.y + 300, 1, (posY) => flame.pos.y = posY, easings.linear)
                 flame.enterState('rotate', 'launch')
             })
         }

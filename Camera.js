@@ -1,37 +1,34 @@
 export class Camera {
-  attachedObj = null;
+  attachedObj = null
 
   attach(gameObj, offsetX = 0, offsetY = 0, fixedX = null, fixedY = null) {
-    this.attachedObj = gameObj;
+    this.attachedObj = gameObj
     if (fixedX && !fixedY) {
       onUpdate(() => {
-        camPos(fixedX, this.attachedObj.pos.y + offsetY);
-      });
+        camPos(fixedX, this.attachedObj.pos.y + offsetY)
+      })
 
-      return;
+      return
     }
 
     if (!fixedX && fixedY) {
       onUpdate(() => {
-        camPos(this.attachedObj.pos.x + offsetX, fixedY);
-      });
+        camPos(this.attachedObj.pos.x + offsetX, fixedY)
+      })
 
-      return;
+      return
     }
 
     if (fixedX && fixedY) {
       onUpdate(() => {
-        camPos(fixedX, fixedY);
-      });
+        camPos(fixedX, fixedY)
+      })
 
-      return;
+      return
     }
 
     onUpdate(() => {
-      camPos(
-        this.attachedObj.pos.x + offsetX,
-        this.attachedObj.pos.y + offsetY
-      );
-    });
+      camPos(this.attachedObj.pos.x + offsetX, this.attachedObj.pos.y + offsetY)
+    })
   }
 }

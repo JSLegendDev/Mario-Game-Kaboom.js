@@ -1,6 +1,6 @@
 export class Flames {
   constructor(positions, type) {
-    this.flames = [];
+    this.flames = []
     for (const position of positions) {
       this.flames.push(
         add([
@@ -13,7 +13,7 @@ export class Flames {
           state("launch", ["launch", "rotate", "fall"]),
           "flames",
         ])
-      );
+      )
     }
   }
 
@@ -26,14 +26,14 @@ export class Flames {
           1,
           (posY) => (flame.pos.y = posY),
           easings.linear
-        );
-        flame.enterState("rotate", "fall");
-      });
+        )
+        flame.enterState("rotate", "fall")
+      })
 
       flame.onStateEnter("rotate", (nextState) => {
-        flame.rotateBy(180);
-        flame.enterState(nextState);
-      });
+        flame.rotateBy(180)
+        flame.enterState(nextState)
+      })
 
       flame.onStateEnter("fall", async () => {
         await tween(
@@ -42,9 +42,9 @@ export class Flames {
           1,
           (posY) => (flame.pos.y = posY),
           easings.linear
-        );
-        flame.enterState("rotate", "launch");
-      });
+        )
+        flame.enterState("rotate", "launch")
+      })
     }
   }
 }

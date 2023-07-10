@@ -59,7 +59,7 @@ export const level1Mappings = {
   e: () => [sprite("grass-oneway-tileset", { anim: "mr" }), offscreen()],
   o: () => [sprite("bridge"), area(), body({ isStatic: true }), offscreen()],
   "@": () => [sprite("coin"), area(), "coin", offscreen()],
-};
+}
 
 export const level1Layout = [
   [
@@ -105,4 +105,4 @@ export const level1Layout = [
     "                                                                                                ",
     "                                                                                                ",
   ],
-];
+]

@@ -19,8 +19,9 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
-    semi: ["error", "never"],
     quotes: ["error", "double"],
     "no-unused-vars": ["error", "all"],
+    "no-console": ["error"],
   },
+  extends: "prettier",
 }

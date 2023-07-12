@@ -105,6 +105,15 @@ export class Player {
     }, 1000)
   }
 
+  enableMobVunerability() {
+    this.gameObj.onCollide("fish", () => {
+      this.isRespawning = true
+      this.gameObj.pos = vec2(this.initialX, this.initialY)
+      this.isRespawning = false
+      this.lives--
+    })
+  }
+
   update() {
     onUpdate(() => {
       this.heightDelta = this.previousHeight - this.gameObj.pos.y

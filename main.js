@@ -25,6 +25,7 @@ scene("world-1", () => {
   )
   player.enablePassthrough()
   player.enableCoinPickUp()
+  player.enableMobVunerability()
 
   const camera = new Camera()
   camera.attach(player.gameObj, 0, -200, null, 200)

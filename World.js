@@ -120,7 +120,18 @@ export class World1 extends World {
       layer.use(scale(4))
     }
 
-    const fish = new Fish([vec2(2595, 600), vec2(2655, 500)], 1)
+    const fish = new Fish(
+      [
+        vec2(2595, 600),
+        vec2(2655, 600),
+        vec2(4100, 600),
+        vec2(4220, 800),
+        vec2(5200, 800),
+        vec2(5300, 800),
+      ],
+      [300, 500, 400, 500, 900, 800],
+      1
+    )
     fish.setMovementPattern()
 
     this.drawWaves()

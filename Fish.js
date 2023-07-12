@@ -1,5 +1,6 @@
 export class Fish {
-  constructor(positions, type) {
+  constructor(positions, amplitudes, type) {
+    this.amplitudes = amplitudes
     this.fish = []
     for (const position of positions) {
       this.fish.push(
@@ -18,14 +19,14 @@ export class Fish {
   }
 
   setMovementPattern() {
-    for (const fish of this.fish) {
+    for (const [index, fish] of this.fish.entries()) {
       fish.onStateEnter("launch", async () => {
         await tween(
           fish.pos.y,
-          fish.pos.y - 300,
-          1,
+          fish.pos.y - this.amplitudes[index],
+          2,
           (posY) => (fish.pos.y = posY),
-          easings.linear
+          easings.easeOutSine
         )
         fish.enterState("rotate", "fall")
       })
@@ -38,10 +39,10 @@ export class Fish {
       fish.onStateEnter("fall", async () => {
         await tween(
           fish.pos.y,
-          fish.pos.y + 300,
-          1,
+          fish.pos.y + this.amplitudes[index],
+          2,
           (posY) => (fish.pos.y = posY),
-          easings.linear
+          easings.easeOutSine
         )
         fish.enterState("rotate", "launch")
       })

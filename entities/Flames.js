@@ -4,7 +4,7 @@ export class Flames {
     for (const position of positions) {
       this.flames.push(
         add([
-          sprite(`flame-${type}`, { anim: "burning" }),
+          sprite(`flame-${type}`, { anim: "burn" }),
           area({ shape: new Rect(vec2(0), 12, 12) }),
           anchor("center"),
           pos(position),

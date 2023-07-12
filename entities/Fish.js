@@ -5,7 +5,7 @@ export class Fish {
     for (const position of positions) {
       this.fish.push(
         add([
-          sprite(`fish-${type}`, { anim: "swimming" }),
+          sprite(`fish-${type}`, { anim: "swim" }),
           area({ shape: new Rect(vec2(0), 12, 12) }),
           anchor("center"),
           pos(position),

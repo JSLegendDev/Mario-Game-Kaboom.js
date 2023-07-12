@@ -1,10 +1,10 @@
 import kaboom from "https://unpkg.com/kaboom@3000.0.14/dist/kaboom.mjs"
-import { Player } from "./Player.js"
-import { Camera } from "./Camera.js"
-import { World1 } from "./World.js"
+import { Player } from "./entities/Player.js"
+import { Camera } from "./utils/Camera.js"
+import { World1 } from "./worlds/World.js"
 import { level1Layout, level1Mappings } from "./content/world1/level1Layout.js"
 import { world1Config } from "./content/world1/config.js"
-import { UI } from "./UI.js"
+import { UI } from "./utils/UI.js"
 
 kaboom({
   width: 1280,

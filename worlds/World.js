@@ -1,4 +1,4 @@
-import { Fish } from "./Fish.js"
+import { Fish } from "../entities/Fish.js"
 
 export class World {
   loadGeneralMapAssets() {

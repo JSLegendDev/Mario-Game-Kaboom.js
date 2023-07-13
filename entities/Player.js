@@ -96,22 +96,18 @@ export class Player {
   }
 
   respawnPlayer() {
-    setTimeout(() => {
-      if (this.lives > 0) {
-        this.gameObj.pos = vec2(this.initialX, this.initialY)
-        this.isRespawning = false
-        this.lives--
-      }
-    }, 1000)
+    if (this.lives > 0) {
+      this.gameObj.pos = vec2(this.initialX, this.initialY)
+      this.lives--
+      return
+    }
+
+    go("gameover")
   }
 
   enableMobVunerability() {
-    this.gameObj.onCollide("fish", () => {
-      this.isRespawning = true
-      this.gameObj.pos = vec2(this.initialX, this.initialY)
-      this.isRespawning = false
-      this.lives--
-    })
+    this.gameObj.onCollide("fish", () => this.respawnPlayer())
+    this.gameObj.onCollide("spiders", () => this.respawnPlayer())
   }
 
   update() {
@@ -139,16 +135,15 @@ export class Player {
         this.gameObj.play("jump-down")
       }
 
-      if (this.gameObj.pos.y > 1000 && !this.isRespawning) {
+      if (this.gameObj.pos.y > 1000) {
         this.respawnPlayer()
-        this.isRespawning = true
       }
     })
   }
 
   updateLives(livesCountUI) {
     onUpdate(() => {
-      livesCountUI.text = `Lives: ${this.lives}`
+      livesCountUI.text = `Lives Left : ${this.lives}`
     })
   }
 

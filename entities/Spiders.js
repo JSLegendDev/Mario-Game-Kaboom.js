@@ -1,21 +1,18 @@
 export class Spiders {
-  constructor(positions, type) {
+  constructor(positions, amplitudes, velocities, type) {
+    this.amplitudes = amplitudes
+    this.velocities = velocities
     this.spiders = []
     for (const position of positions) {
       this.spiders.push(
         add([
           sprite(`spider-${type}`, { anim: "crawl" }),
           pos(position),
-          area({ shape: new Rect(vec2(0), 20, 12), offset: vec2(20, 20) }),
+          area({ shape: new Rect(vec2(0), 20, 12), offset: vec2(0, 2) }),
+          anchor("center"),
           body(),
           scale(4),
-          state("idle", [
-            "idle",
-            "crawl-left",
-            "crawl-right",
-            "alerted",
-            "following",
-          ]),
+          state("idle", ["idle", "crawl-left", "crawl-right"]),
           "spiders",
         ])
       )
@@ -23,17 +20,33 @@ export class Spiders {
   }
 
   setMovementPattern() {
-    const player = get("player")[0]
-    for (const spider of this.spiders) {
-      spider.onStateEnter("idle", (previousState) => {
-        if (spider.curAnim !== "idle") spider.play("idle")
-        if (previousState === "crawl-left") spider.flipX = true
-        if (previousState === "crawl-right") spider.flipX = false
+    for (const [index, spider] of this.spiders.entries()) {
+      spider.onStateEnter("idle", () => {
+        spider.enterState("crawl-left")
+      })
 
-        if (player.pos.x - spider.pos.x < 200) spider.enterState("alerted")
+      spider.onStateEnter("crawl-left", async () => {
+        spider.flipX = false
+        await tween(
+          spider.pos.x,
+          spider.pos.x - this.amplitudes[index],
+          this.velocities[index],
+          (posX) => (spider.pos.x = posX),
+          easings.easeOutSine
+        )
+        spider.enterState("crawl-right")
+      })
 
-        if (previousState === "crawl-left") spider.enterState("crawl-right")
-        if (previousState === "crawl-right") spider.enterState("crawl-left")
+      spider.onStateEnter("crawl-right", async () => {
+        spider.flipX = true
+        await tween(
+          spider.pos.x,
+          spider.pos.x + this.amplitudes[index],
+          this.velocities[index],
+          (posX) => (spider.pos.x = posX),
+          easings.easeOutSine
+        )
+        spider.enterState("crawl-left")
       })
     }
   }

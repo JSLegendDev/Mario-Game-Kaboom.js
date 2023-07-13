@@ -6,7 +6,7 @@ export class UI {
 
   displayLivesCount(player) {
     this.livesCountUI = add([
-      text(`Lives: ${player.lives}`, {
+      text(`Lives Left: ${player.lives}`, {
         font: "Round",
         size: 32,
       }),

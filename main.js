@@ -39,4 +39,8 @@ scene("world-1", () => {
   player.updateCoinCount(UIManager.coinCountUI)
 })
 
+scene("gameover", () => {
+  onKeyDown("enter", () => go("world-1"))
+})
+
 go("world-1")

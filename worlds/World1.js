@@ -145,7 +145,13 @@ export class World1 extends World {
     )
     fish.setMovementPattern()
 
-    const spiders = new Spiders([vec2(2000, 300)], 1)
+    const spiders = new Spiders(
+      [vec2(2000, 300), vec2(2020, 0)],
+      [300, 150],
+      [2, 1],
+      1
+    )
+    spiders.setMovementPattern()
 
     this.drawWaves()
   }

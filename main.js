@@ -1,4 +1,4 @@
-import kaboom from "https://unpkg.com/kaboom@3000.0.14/dist/kaboom.mjs"
+import kaboom from "./libs/kaboom.mjs"
 import { Player } from "./entities/Player.js"
 import { Camera } from "./utils/Camera.js"
 import { World1 } from "./worlds/World1.js"

@@ -1,4 +1,7 @@
 export class Spiders {
+  rangeX = 0
+  rangeY = 800
+
   constructor(positions, amplitudes, velocities, type) {
     this.amplitudes = amplitudes
     this.velocities = velocities
@@ -19,7 +22,7 @@ export class Spiders {
     }
   }
 
-  setMovementPattern() {
+  setMovementPattern(target) {
     for (const [index, spider] of this.spiders.entries()) {
       spider.onStateEnter("idle", () => {
         spider.enterState("crawl-left")
@@ -27,6 +30,28 @@ export class Spiders {
 
       spider.onStateEnter("crawl-left", async () => {
         spider.flipX = false
+
+        if (Math.sign(target.pos.x - spider.pos.x) === 1) {
+          spider.enterState("crawl-right")
+          return
+        }
+
+        if (
+          Math.abs(target.pos.x - spider.pos.x) < this.rangeX &&
+          Math.abs(target.pos.y - spider.pos.y) > this.rangeY
+        ) {
+          await tween(
+            spider.pos.x,
+            target.pos.x,
+            this.velocities[index],
+            (posX) => (spider.pos.x = posX),
+            easings.easeOutSine
+          )
+
+          spider.enterState("crawl-left")
+          return
+        }
+
         await tween(
           spider.pos.x,
           spider.pos.x - this.amplitudes[index],
@@ -39,6 +64,28 @@ export class Spiders {
 
       spider.onStateEnter("crawl-right", async () => {
         spider.flipX = true
+
+        if (Math.sign(target.pos.x - spider.pos.x) === -1) {
+          spider.enterState("crawl-left")
+          return
+        }
+
+        if (
+          Math.abs(target.pos.x - spider.pos.x) < this.rangeX &&
+          Math.abs(target.pos.y - spider.pos.y) > this.rangeY
+        ) {
+          await tween(
+            spider.pos.x,
+            target.pos.x,
+            this.velocities[index],
+            (posX) => (spider.pos.x = posX),
+            easings.easeOutSine
+          )
+
+          spider.enterState("crawl-left")
+          return
+        }
+
         await tween(
           spider.pos.x,
           spider.pos.x + this.amplitudes[index],

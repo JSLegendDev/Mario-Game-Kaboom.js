@@ -98,35 +98,7 @@ export class World1 extends World {
     })
   }
 
-  drawWaves() {
-    let offset = -100
-    for (let i = 0; i < 21; i++) {
-      add([
-        sprite("water", { anim: "wave" }),
-        pos(offset, 600),
-        scale(4),
-        fixed(),
-      ])
-      offset += 64
-    }
-  }
-
-  drawMap(levelLayout, mappings) {
+  drawBackground() {
     this.background = add([sprite("forest-background"), fixed(), scale(4)])
-
-    const layerSettings = {
-      tileWidth: 16,
-      tileHeight: 12,
-      tiles: mappings,
-    }
-
-    this.map = []
-    for (const layerLayout of levelLayout) {
-      this.map.push(addLevel(layerLayout, layerSettings))
-    }
-
-    for (const layer of this.map) {
-      layer.use(scale(4))
-    }
   }
 }

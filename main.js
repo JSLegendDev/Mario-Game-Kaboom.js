@@ -15,11 +15,12 @@ kaboom({
 })
 
 scene("world-1", () => {
-  setGravity(1400)
   const world1 = new World1()
+  setGravity(world1Config.gravity)
   world1.loadGeneralMapAssets()
   world1.loadMapAssets()
-  world1.drawMap(level1Layout, level1Mappings)
+  world1.drawBackground()
+  world1.drawMapLayout(level1Layout, level1Mappings)
 
   const player = new Player(
     world1Config.playerStartPosX,
@@ -31,16 +32,9 @@ scene("world-1", () => {
   player.enableMobVunerability()
 
   const fish = new Fish(
-    [
-      vec2(2595, 600),
-      vec2(2655, 600),
-      vec2(4100, 600),
-      vec2(4220, 800),
-      vec2(5200, 800),
-      vec2(5300, 800),
-    ],
-    [300, 500, 400, 500, 900, 800],
-    1
+    world1Config.fishPositions.map((fishPos) => fishPos()),
+    world1Config.fishAmplitudes,
+    world1Config.fishType
   )
   fish.setMovementPattern()
 
@@ -52,7 +46,7 @@ scene("world-1", () => {
   )
   spiders.setMovementPattern(player.gameObj)
 
-  world1.drawWaves()
+  world1.drawWaves("water", "wave")
 
   const camera = new Camera()
   camera.attach(player.gameObj, 0, -200, null, 200)

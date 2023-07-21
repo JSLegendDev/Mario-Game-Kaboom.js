@@ -25,10 +25,10 @@ export class Spiders {
   setMovementPattern() {
     for (const [index, spider] of this.spiders.entries()) {
       spider.onStateEnter("idle", async (previousState) => {
-        spider.play("idle")
+        if (spider.currAnim !== "idle") spider.play("idle")
 
         await new Promise((resolve) => {
-          setTimeout(() => resolve(), 2000)
+          setTimeout(() => resolve(), 1000)
         })
 
         if (previousState === "crawl-left") {
@@ -41,6 +41,7 @@ export class Spiders {
       })
 
       spider.onStateEnter("crawl-left", async () => {
+        if (spider.currAnim !== "crawl") spider.play("crawl")
         spider.flipX = false
 
         await tween(
@@ -54,6 +55,7 @@ export class Spiders {
       })
 
       spider.onStateEnter("crawl-right", async () => {
+        if (spider.currAnim !== "crawl") spider.play("crawl")
         spider.flipX = true
 
         await tween(
@@ -65,9 +67,15 @@ export class Spiders {
         )
         spider.enterState("idle", "crawl-right")
       })
+    }
+  }
 
-      spider.onCollide("ai-blocker", () => {
-        spider.enterState("idle", spider.state)
+  enablePassthrough() {
+    for (const spider of this.spiders) {
+      spider.onBeforePhysicsResolve((collision) => {
+        if (collision.target.is("passthrough") && spider.isJumping()) {
+          collision.preventResolution()
+        }
       })
     }
   }

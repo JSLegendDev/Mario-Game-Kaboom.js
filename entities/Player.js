@@ -84,7 +84,7 @@ export class Player {
     })
 
     onKeyPress("space", () => {
-      if (this.gameObj.isGrounded()) this.gameObj.jump()
+      if (this.gameObj.isGrounded() && !this.isRespawning) this.gameObj.jump()
     })
 
     onKeyRelease(() => {
@@ -99,6 +99,8 @@ export class Player {
     if (this.lives > 0) {
       this.gameObj.pos = vec2(this.initialX, this.initialY)
       this.lives--
+      this.isRespawning = true
+      setTimeout(() => (this.isRespawning = false), 1000)
       return
     }
 

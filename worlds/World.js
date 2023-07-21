@@ -1,6 +1,24 @@
 export class World {
   loadGeneralMapAssets() {
     loadSprite("coin", "assets/Coin.png")
+    loadSprite("player", "assets/Player.png", {
+      sliceX: 4,
+      sliceY: 6,
+      anims: {
+        idle: {
+          from: 0,
+          to: 3,
+          loop: true,
+        },
+        run: {
+          from: 4,
+          to: 7,
+          loop: true,
+        },
+        "jump-up": 8,
+        "jump-down": 9,
+      },
+    })
   }
 
   drawWaves(type, anim) {

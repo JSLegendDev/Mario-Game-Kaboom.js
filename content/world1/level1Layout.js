@@ -59,12 +59,13 @@ export const level1Mappings = {
   e: () => [sprite("grass-oneway-tileset", { anim: "mr" }), offscreen()],
   o: () => [sprite("bridge"), area(), body({ isStatic: true }), offscreen()],
   "@": () => [sprite("coin"), area(), "coin", offscreen()],
+  "#": () => [rect(16, 12), area(), opacity(0), "ai-blocker"],
 }
 
 export const level1Layout = [
   [
     "                              @                                                             ",
-    "                                                                                            ",
+    "                             #  #                                                           ",
     "                             9aab                                                           ",
     "                             cdde                                                           ",
     "                             cdde                                                           ",

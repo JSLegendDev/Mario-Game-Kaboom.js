@@ -22,35 +22,26 @@ export class Spiders {
     }
   }
 
-  setMovementPattern(target) {
+  setMovementPattern() {
     for (const [index, spider] of this.spiders.entries()) {
-      spider.onStateEnter("idle", () => {
+      spider.onStateEnter("idle", async (previousState) => {
+        spider.play("idle")
+
+        await new Promise((resolve) => {
+          setTimeout(() => resolve(), 2000)
+        })
+
+        if (previousState === "crawl-left") {
+          spider.enterState("crawl-right")
+          return
+        }
+
+        spider.jump()
         spider.enterState("crawl-left")
       })
 
       spider.onStateEnter("crawl-left", async () => {
         spider.flipX = false
-
-        if (Math.sign(target.pos.x - spider.pos.x) === 1) {
-          spider.enterState("crawl-right")
-          return
-        }
-
-        if (
-          Math.abs(target.pos.x - spider.pos.x) < this.rangeX &&
-          Math.abs(target.pos.y - spider.pos.y) > this.rangeY
-        ) {
-          await tween(
-            spider.pos.x,
-            target.pos.x,
-            this.velocities[index],
-            (posX) => (spider.pos.x = posX),
-            easings.easeOutSine
-          )
-
-          spider.enterState("crawl-left")
-          return
-        }
 
         await tween(
           spider.pos.x,
@@ -59,32 +50,11 @@ export class Spiders {
           (posX) => (spider.pos.x = posX),
           easings.easeOutSine
         )
-        spider.enterState("crawl-right")
+        spider.enterState("idle", "crawl-left")
       })
 
       spider.onStateEnter("crawl-right", async () => {
         spider.flipX = true
-
-        if (Math.sign(target.pos.x - spider.pos.x) === -1) {
-          spider.enterState("crawl-left")
-          return
-        }
-
-        if (
-          Math.abs(target.pos.x - spider.pos.x) < this.rangeX &&
-          Math.abs(target.pos.y - spider.pos.y) > this.rangeY
-        ) {
-          await tween(
-            spider.pos.x,
-            target.pos.x,
-            this.velocities[index],
-            (posX) => (spider.pos.x = posX),
-            easings.easeOutSine
-          )
-
-          spider.enterState("crawl-left")
-          return
-        }
 
         await tween(
           spider.pos.x,
@@ -93,7 +63,11 @@ export class Spiders {
           (posX) => (spider.pos.x = posX),
           easings.easeOutSine
         )
-        spider.enterState("crawl-left")
+        spider.enterState("idle", "crawl-right")
+      })
+
+      spider.onCollide("ai-blocker", () => {
+        spider.enterState("idle", spider.state)
       })
     }
   }

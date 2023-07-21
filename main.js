@@ -44,7 +44,7 @@ scene("world-1", () => {
     [2, 1],
     1
   )
-  spiders.setMovementPattern(player.gameObj)
+  spiders.setMovementPattern()
 
   world1.drawWaves("water", "wave")
 

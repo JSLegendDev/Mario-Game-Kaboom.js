@@ -19,7 +19,7 @@ export class Player {
   }
 
   loadPlayerAnims() {
-    loadSprite("player", "/assets/Player.png", {
+    loadSprite("player", "assets/Player.png", {
       sliceX: 4,
       sliceY: 6,
       anims: {

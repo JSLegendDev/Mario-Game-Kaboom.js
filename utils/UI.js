@@ -17,7 +17,13 @@ export class UI {
 
   displayCoinCount(player) {
     this.coinCountUI = add([
-      text(`${player.coins}`, { font: "Round", size: 50 }),
+      text(`${player.coins} / ${this.fullCoinCount}`, {
+        font: "Round",
+        size: 50,
+      }),
+      {
+        fullCoinCount: get("coin", { recursive: true }).length,
+      },
       fixed(),
       pos(70, 50),
     ])

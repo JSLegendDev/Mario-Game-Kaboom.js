@@ -19,7 +19,7 @@ scene("world-1", () => {
   setGravity(world1Config.gravity)
   world1.loadGeneralMapAssets()
   world1.loadMapAssets()
-  world1.drawBackground()
+  world1.drawBackground("forest-background")
   world1.drawMapLayout(level1Layout, level1Mappings)
 
   const player = new Player(
@@ -39,10 +39,10 @@ scene("world-1", () => {
   fish.setMovementPattern()
 
   const spiders = new Spiders(
-    [vec2(2000, 300), vec2(2020, 0)],
-    [300, 150],
-    [2, 1],
-    1
+    world1Config.spiderPositions.map((spiderPos) => spiderPos()),
+    world1Config.spiderAmplitudes,
+    world1Config.spiderSpeeds,
+    world1Config.spiderType
   )
   spiders.setMovementPattern()
   spiders.enablePassthrough()
@@ -59,6 +59,8 @@ scene("world-1", () => {
   player.updateLives(UIManager.livesCountUI)
   player.updateCoinCount(UIManager.coinCountUI)
 })
+
+scene("world-2", () => {})
 
 scene("gameover", () => {
   onKeyDown("enter", () => go("world-1"))

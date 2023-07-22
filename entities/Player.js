@@ -129,7 +129,10 @@ export class Player {
 
   updateCoinCount(coinCountUI) {
     onUpdate(() => {
-      coinCountUI.text = `${this.coins}`
+      coinCountUI.text = `${this.coins} / ${coinCountUI.fullCoinCount}`
+      if (this.coins === coinCountUI.fullCoinCount) {
+        go("world-2")
+      }
     })
   }
 }

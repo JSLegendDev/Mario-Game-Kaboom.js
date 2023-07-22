@@ -45,4 +45,8 @@ export class World {
       layer.use(scale(4))
     }
   }
+
+  drawBackground(bgSpriteName) {
+    this.background = add([sprite(bgSpriteName), fixed(), scale(4)])
+  }
 }

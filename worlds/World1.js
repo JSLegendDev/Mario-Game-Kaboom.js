@@ -97,8 +97,4 @@ export class World1 extends World {
       },
     })
   }
-
-  drawBackground() {
-    this.background = add([sprite("forest-background"), fixed(), scale(4)])
-  }
 }

@@ -51,7 +51,6 @@ export class World1 extends World {
         },
       },
     })
-    loadSprite("bridge", "assets/Bridge.png")
     loadSprite("flame-1", "assets/Flame_1.png", {
       sliceX: 2,
       sliceY: 1,

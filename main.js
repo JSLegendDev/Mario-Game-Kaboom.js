@@ -7,6 +7,8 @@ import { World1 } from "./worlds/World1.js"
 import { level1Layout, level1Mappings } from "./content/world1/level1Layout.js"
 import { world1Config } from "./content/world1/config.js"
 import { UI } from "./utils/UI.js"
+import { World2 } from "./worlds/World2.js"
+import { level2Layout, level2Mappings } from "./content/world2/level2Layout.js"
 
 kaboom({
   width: 1280,
@@ -60,10 +62,32 @@ scene("world-1", () => {
   player.updateCoinCount(UIManager.coinCountUI)
 })
 
-scene("world-2", () => {})
+scene("world-2", () => {
+  setGravity(world1Config.gravity)
+
+  const world2 = new World2()
+  world2.loadGeneralMapAssets()
+  world2.loadMapAssets()
+  world2.drawBackground("castle-background")
+  world2.drawMapLayout(level2Layout, level2Mappings)
+
+  const player = new Player(
+    world1Config.playerStartPosX,
+    world1Config.playerStartPosY,
+    world1Config.playerSpeed
+  )
+  player.enablePassthrough()
+  player.enableCoinPickUp()
+  player.enableMobVunerability()
+
+  const camera = new Camera()
+  camera.attach(player.gameObj, 0, -200, null, 200)
+
+  world2.drawWaves("lava", "wave")
+})
 
 scene("gameover", () => {
   onKeyDown("enter", () => go("world-1"))
 })
 
-go("world-1")
+go("world-2")

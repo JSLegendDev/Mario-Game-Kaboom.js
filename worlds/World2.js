@@ -18,5 +18,39 @@ export class World2 extends World {
         "mr-2": 8,
       },
     })
+    loadSprite("brick-oneway-tileset", "assets/Brick_Oneway.png", {
+      sliceX: 3,
+      sliceY: 4,
+      anims: {
+        tl: 0,
+        tm: 1,
+        tr: 2,
+        ml: 3,
+        mm: 4,
+        mr: 5,
+        "ml-2": 6,
+        "mm-2": 7,
+        "mr-2": 8,
+      },
+    })
+
+    loadSprite("lava", "assets/Lava.png", {
+      sliceX: 8,
+      sliceY: 1,
+      anims: {
+        wave: {
+          from: 0,
+          to: 7,
+          speed: 16,
+          loop: true,
+        },
+        "wave-reversed": {
+          from: 7,
+          to: 0,
+          speed: 16,
+          loop: true,
+        },
+      },
+    })
   }
 }

@@ -19,6 +19,7 @@ export class World {
         "jump-down": 9,
       },
     })
+    loadSprite("bridge", "assets/Bridge.png")
   }
 
   drawWaves(type, anim) {

@@ -6,6 +6,7 @@ import { Camera } from "./utils/Camera.js"
 import { World1 } from "./worlds/World1.js"
 import { level1Layout, level1Mappings } from "./content/world1/level1Layout.js"
 import { world1Config } from "./content/world1/config.js"
+import { world2Config } from "./content/world2/config.js"
 import { UI } from "./utils/UI.js"
 import { World2 } from "./worlds/World2.js"
 import { level2Layout, level2Mappings } from "./content/world2/level2Layout.js"
@@ -63,7 +64,7 @@ scene("world-1", () => {
 })
 
 scene("world-2", () => {
-  setGravity(world1Config.gravity)
+  setGravity(world2Config.gravity)
 
   const world2 = new World2()
   world2.loadGeneralMapAssets()
@@ -72,18 +73,27 @@ scene("world-2", () => {
   world2.drawMapLayout(level2Layout, level2Mappings)
 
   const player = new Player(
-    world1Config.playerStartPosX,
-    world1Config.playerStartPosY,
-    world1Config.playerSpeed
+    world2Config.playerStartPosX,
+    world2Config.playerStartPosY,
+    world2Config.playerSpeed
   )
   player.enablePassthrough()
   player.enableCoinPickUp()
   player.enableMobVunerability()
 
-  const camera = new Camera()
-  camera.attach(player.gameObj, 0, -200, null, 200)
+  const spiders = new Spiders(
+    world2Config.spiderPositions.map((spiderPos) => spiderPos()),
+    world2Config.spiderAmplitudes,
+    world2Config.spiderSpeeds,
+    world2Config.spiderType
+  )
+  spiders.setMovementPattern()
+  spiders.enablePassthrough()
 
   world2.drawWaves("lava", "wave")
+
+  const camera = new Camera()
+  camera.attach(player.gameObj, 0, -200, null, 200)
 })
 
 scene("gameover", () => {

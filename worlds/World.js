@@ -20,6 +20,22 @@ export class World {
       },
     })
     loadSprite("bridge", "assets/Bridge.png")
+    loadSprite("spider-1", "assets/Spider_1.png", {
+      sliceX: 3,
+      sliceY: 1,
+      anims: {
+        crawl: { from: 0, to: 2, loop: true },
+        idle: 0,
+      },
+    })
+    loadSprite("spider-2", "assets/Spider_2.png", {
+      sliceX: 3,
+      sliceY: 1,
+      anims: {
+        crawl: { from: 0, to: 2, loop: true },
+        idle: 0,
+      },
+    })
   }
 
   drawWaves(type, anim) {

@@ -52,5 +52,19 @@ export class World2 extends World {
         },
       },
     })
+    loadSprite("flame-1", "assets/Flame_1.png", {
+      sliceX: 2,
+      sliceY: 1,
+      anims: {
+        burn: { from: 0, to: 1, loop: true },
+      },
+    })
+    loadSprite("flame-2", "assets/Flame_2.png", {
+      sliceX: 2,
+      sliceY: 1,
+      anims: {
+        burn: { from: 0, to: 1, loop: true },
+      },
+    })
   }
 }

@@ -1,5 +1,6 @@
 export class Flames {
-  constructor(positions, type) {
+  constructor(positions, amplitudes, type) {
+    this.amplitudes = amplitudes
     this.flames = []
     for (const position of positions) {
       this.flames.push(
@@ -18,12 +19,12 @@ export class Flames {
   }
 
   setMovementPattern() {
-    for (const flame of this.flames) {
+    for (const [index, flame] of this.flames.entries()) {
       flame.onStateEnter("launch", async () => {
         await tween(
           flame.pos.y,
-          flame.pos.y - 300,
-          1,
+          flame.pos.y - this.amplitudes[index],
+          2,
           (posY) => (flame.pos.y = posY),
           easings.linear
         )
@@ -38,8 +39,8 @@ export class Flames {
       flame.onStateEnter("fall", async () => {
         await tween(
           flame.pos.y,
-          flame.pos.y + 300,
-          1,
+          flame.pos.y + this.amplitudes[index],
+          2,
           (posY) => (flame.pos.y = posY),
           easings.linear
         )

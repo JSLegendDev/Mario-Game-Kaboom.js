@@ -1,6 +1,7 @@
 import kaboom from "./libs/kaboom.mjs"
 import { Player } from "./entities/Player.js"
 import { Fish } from "./entities/Fish.js"
+import { Flames } from "./entities/Flames.js"
 import { Spiders } from "./entities/Spiders.js"
 import { Camera } from "./utils/Camera.js"
 import { World1 } from "./worlds/World1.js"
@@ -81,6 +82,13 @@ scene("world-2", () => {
   player.enableCoinPickUp()
   player.enableMobVunerability()
 
+  const flames = new Flames(
+    world2Config.flamePositions.map((flamePos) => flamePos()),
+    world2Config.flameAmplitudes,
+    world2Config.flameType
+  )
+  flames.setMovementPattern()
+
   const spiders = new Spiders(
     world2Config.spiderPositions.map((spiderPos) => spiderPos()),
     world2Config.spiderAmplitudes,
@@ -94,6 +102,14 @@ scene("world-2", () => {
 
   const camera = new Camera()
   camera.attach(player.gameObj, 0, -200, null, 200)
+
+  const UIManager = new UI()
+  UIManager.loadUIAssets()
+  UIManager.displayLivesCount(player)
+  UIManager.displayCoinCount(player)
+
+  player.updateLives(UIManager.livesCountUI)
+  player.updateCoinCount(UIManager.coinCountUI)
 })
 
 scene("gameover", () => {

@@ -88,6 +88,7 @@ export class Player {
   enableMobVunerability() {
     this.gameObj.onCollide("fish", () => this.respawnPlayer())
     this.gameObj.onCollide("spiders", () => this.respawnPlayer())
+    this.gameObj.onCollide("flames", () => this.respawnPlayer())
   }
 
   update() {

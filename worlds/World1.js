@@ -51,20 +51,6 @@ export class World1 extends World {
         },
       },
     })
-    loadSprite("flame-1", "assets/Flame_1.png", {
-      sliceX: 2,
-      sliceY: 1,
-      anims: {
-        burn: { from: 0, to: 1, loop: true },
-      },
-    })
-    loadSprite("flame-2", "assets/Flame_2.png", {
-      sliceX: 2,
-      sliceY: 1,
-      anims: {
-        burn: { from: 0, to: 1, loop: true },
-      },
-    })
     loadSprite("fish-1", "assets/Fish_1.png", {
       sliceX: 2,
       sliceY: 1,
@@ -77,22 +63,6 @@ export class World1 extends World {
       sliceY: 1,
       anims: {
         swim: { from: 0, to: 1, loop: true },
-      },
-    })
-    loadSprite("spider-1", "assets/Spider_1.png", {
-      sliceX: 3,
-      sliceY: 1,
-      anims: {
-        crawl: { from: 0, to: 2, loop: true },
-        idle: 0,
-      },
-    })
-    loadSprite("spider-2", "assets/Spider_2.png", {
-      sliceX: 3,
-      sliceY: 1,
-      anims: {
-        crawl: { from: 0, to: 2, loop: true },
-        idle: 0,
       },
     })
   }

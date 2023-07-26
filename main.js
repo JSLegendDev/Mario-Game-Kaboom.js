@@ -18,98 +18,105 @@ kaboom({
   letterbox: true,
 })
 
+const scenes = {
+  menu: () => {},
+  1: () => {
+    const level1 = new Level()
+    setGravity(level1Config.gravity)
+    level1.drawBackground("forest-background")
+    level1.drawMapLayout(level1Layout, level1Mappings)
+
+    const player = new Player(
+      level1Config.playerStartPosX,
+      level1Config.playerStartPosY,
+      level1Config.playerSpeed,
+      1
+    )
+    player.enablePassthrough()
+    player.enableCoinPickUp()
+    player.enableMobVunerability()
+
+    const fish = new Fish(
+      level1Config.fishPositions.map((fishPos) => fishPos()),
+      level1Config.fishAmplitudes,
+      level1Config.fishType
+    )
+    fish.setMovementPattern()
+
+    const spiders = new Spiders(
+      level1Config.spiderPositions.map((spiderPos) => spiderPos()),
+      level1Config.spiderAmplitudes,
+      level1Config.spiderSpeeds,
+      level1Config.spiderType
+    )
+    spiders.setMovementPattern()
+    spiders.enablePassthrough()
+
+    level1.drawWaves("water", "wave")
+
+    const camera = new Camera()
+    camera.attach(player.gameObj, 0, -200, null, 200)
+    const UIManager = new UI()
+    UIManager.displayLivesCount(player)
+    UIManager.displayCoinCount(player)
+
+    player.updateLives(UIManager.livesCountUI)
+    player.updateCoinCount(UIManager.coinCountUI)
+  },
+  2: () => {
+    setGravity(level2Config.gravity)
+
+    const level2 = new Level()
+    level2.drawBackground("castle-background")
+    level2.drawMapLayout(level2Layout, level2Mappings)
+
+    const player = new Player(
+      level2Config.playerStartPosX,
+      level2Config.playerStartPosY,
+      level2Config.playerSpeed,
+      2
+    )
+    player.enablePassthrough()
+    player.enableCoinPickUp()
+    player.enableMobVunerability()
+
+    const flames = new Flames(
+      level2Config.flamePositions.map((flamePos) => flamePos()),
+      level2Config.flameAmplitudes,
+      level2Config.flameType
+    )
+    flames.setMovementPattern()
+
+    const spiders = new Spiders(
+      level2Config.spiderPositions.map((spiderPos) => spiderPos()),
+      level2Config.spiderAmplitudes,
+      level2Config.spiderSpeeds,
+      level2Config.spiderType
+    )
+    spiders.setMovementPattern()
+    spiders.enablePassthrough()
+
+    level2.drawWaves("lava", "wave")
+
+    const camera = new Camera()
+    camera.attach(player.gameObj, 0, -200, null, 200)
+
+    const UIManager = new UI()
+    UIManager.displayLivesCount(player)
+    UIManager.displayCoinCount(player)
+
+    player.updateLives(UIManager.livesCountUI)
+    player.updateCoinCount(UIManager.coinCountUI)
+  },
+  gameover: () => {
+    onKeyDown("enter", () => go(1))
+  },
+}
+
 loadAssets()
 
-scene("world-1", () => {
-  const level1 = new Level()
-  setGravity(level1Config.gravity)
-  level1.drawBackground("forest-background")
-  level1.drawMapLayout(level1Layout, level1Mappings)
+for (const key in scenes) {
+  scene(key, scenes[key])
+}
 
-  const player = new Player(
-    level1Config.playerStartPosX,
-    level1Config.playerStartPosY,
-    level1Config.playerSpeed
-  )
-  player.enablePassthrough()
-  player.enableCoinPickUp()
-  player.enableMobVunerability()
-
-  const fish = new Fish(
-    level1Config.fishPositions.map((fishPos) => fishPos()),
-    level1Config.fishAmplitudes,
-    level1Config.fishType
-  )
-  fish.setMovementPattern()
-
-  const spiders = new Spiders(
-    level1Config.spiderPositions.map((spiderPos) => spiderPos()),
-    level1Config.spiderAmplitudes,
-    level1Config.spiderSpeeds,
-    level1Config.spiderType
-  )
-  spiders.setMovementPattern()
-  spiders.enablePassthrough()
-
-  level1.drawWaves("water", "wave")
-
-  const camera = new Camera()
-  camera.attach(player.gameObj, 0, -200, null, 200)
-  const UIManager = new UI()
-  UIManager.displayLivesCount(player)
-  UIManager.displayCoinCount(player)
-
-  player.updateLives(UIManager.livesCountUI)
-  player.updateCoinCount(UIManager.coinCountUI)
-})
-
-scene("world-2", () => {
-  setGravity(level2Config.gravity)
-
-  const level2 = new Level()
-  level2.drawBackground("castle-background")
-  level2.drawMapLayout(level2Layout, level2Mappings)
-
-  const player = new Player(
-    level2Config.playerStartPosX,
-    level2Config.playerStartPosY,
-    level2Config.playerSpeed
-  )
-  player.enablePassthrough()
-  player.enableCoinPickUp()
-  player.enableMobVunerability()
-
-  const flames = new Flames(
-    level2Config.flamePositions.map((flamePos) => flamePos()),
-    level2Config.flameAmplitudes,
-    level2Config.flameType
-  )
-  flames.setMovementPattern()
-
-  const spiders = new Spiders(
-    level2Config.spiderPositions.map((spiderPos) => spiderPos()),
-    level2Config.spiderAmplitudes,
-    level2Config.spiderSpeeds,
-    level2Config.spiderType
-  )
-  spiders.setMovementPattern()
-  spiders.enablePassthrough()
-
-  level2.drawWaves("lava", "wave")
-
-  const camera = new Camera()
-  camera.attach(player.gameObj, 0, -200, null, 200)
-
-  const UIManager = new UI()
-  UIManager.displayLivesCount(player)
-  UIManager.displayCoinCount(player)
-
-  player.updateLives(UIManager.livesCountUI)
-  player.updateCoinCount(UIManager.coinCountUI)
-})
-
-scene("gameover", () => {
-  onKeyDown("enter", () => go("world-1"))
-})
-
-go("world-2")
+go(1)

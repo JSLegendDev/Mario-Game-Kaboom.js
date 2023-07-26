@@ -11,7 +11,7 @@ export class UI {
         size: 32,
       }),
       fixed(),
-      pos(10, 10),
+      pos(10, 20),
     ])
   }
 
@@ -25,7 +25,7 @@ export class UI {
         fullCoinCount: get("coin", { recursive: true }).length,
       },
       fixed(),
-      pos(70, 50),
+      pos(70, 70),
     ])
 
     this.coinCountUI.add([sprite("coin-icon"), pos(-60, 0), scale(3), fixed()])

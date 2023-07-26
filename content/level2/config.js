@@ -1,4 +1,4 @@
-export const world2Config = {
+export const level2Config = {
   gravity: 1400,
   playerSpeed: 400,
   playerStartPosX: 1500,
@@ -6,20 +6,23 @@ export const world2Config = {
   flamePositions: [
     () => vec2(2595, 600),
     () => vec2(2655, 600),
+    () => vec2(2775, 600),
+    () => vec2(2965, 600),
     () => vec2(4100, 600),
     () => vec2(4220, 800),
     () => vec2(5200, 800),
     () => vec2(5300, 800),
   ],
-  flameAmplitudes: [300, 500, 400, 500, 900, 800],
+  flameAmplitudes: [300, 500, 400, 500, 900, 800, 500, 500],
   flameType: 1,
   spiderPositions: [
     () => vec2(2000, 300),
     () => vec2(2020, 0),
     () => vec2(3200, 200),
     () => vec2(3500, 300),
+    () => vec2(4500, 300),
   ],
-  spiderAmplitudes: [300, 150, 150, 300],
-  spiderSpeeds: [2, 1, 1, 2],
+  spiderAmplitudes: [300, 150, 150, 300, 300],
+  spiderSpeeds: [2, 1, 1, 2, 2],
   spiderType: 2,
 }

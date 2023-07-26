@@ -4,13 +4,13 @@ import { Fish } from "./entities/Fish.js"
 import { Flames } from "./entities/Flames.js"
 import { Spiders } from "./entities/Spiders.js"
 import { Camera } from "./utils/Camera.js"
-import { World1 } from "./worlds/World1.js"
-import { level1Layout, level1Mappings } from "./content/world1/level1Layout.js"
-import { world1Config } from "./content/world1/config.js"
-import { world2Config } from "./content/world2/config.js"
+import { level1Layout, level1Mappings } from "./content/level1/level1Layout.js"
+import { level1Config } from "./content/level1/config.js"
+import { level2Config } from "./content/level2/config.js"
 import { UI } from "./utils/UI.js"
-import { World2 } from "./worlds/World2.js"
-import { level2Layout, level2Mappings } from "./content/world2/level2Layout.js"
+import { level2Layout, level2Mappings } from "./content/level2/level2Layout.js"
+import { loadAssets } from "./utils/loadAssets.js"
+import { Level } from "./entities/Level.js"
 
 kaboom({
   width: 1280,
@@ -18,45 +18,44 @@ kaboom({
   letterbox: true,
 })
 
+loadAssets()
+
 scene("world-1", () => {
-  const world1 = new World1()
-  setGravity(world1Config.gravity)
-  world1.loadGeneralMapAssets()
-  world1.loadMapAssets()
-  world1.drawBackground("forest-background")
-  world1.drawMapLayout(level1Layout, level1Mappings)
+  const level1 = new Level()
+  setGravity(level1Config.gravity)
+  level1.drawBackground("forest-background")
+  level1.drawMapLayout(level1Layout, level1Mappings)
 
   const player = new Player(
-    world1Config.playerStartPosX,
-    world1Config.playerStartPosY,
-    world1Config.playerSpeed
+    level1Config.playerStartPosX,
+    level1Config.playerStartPosY,
+    level1Config.playerSpeed
   )
   player.enablePassthrough()
   player.enableCoinPickUp()
   player.enableMobVunerability()
 
   const fish = new Fish(
-    world1Config.fishPositions.map((fishPos) => fishPos()),
-    world1Config.fishAmplitudes,
-    world1Config.fishType
+    level1Config.fishPositions.map((fishPos) => fishPos()),
+    level1Config.fishAmplitudes,
+    level1Config.fishType
   )
   fish.setMovementPattern()
 
   const spiders = new Spiders(
-    world1Config.spiderPositions.map((spiderPos) => spiderPos()),
-    world1Config.spiderAmplitudes,
-    world1Config.spiderSpeeds,
-    world1Config.spiderType
+    level1Config.spiderPositions.map((spiderPos) => spiderPos()),
+    level1Config.spiderAmplitudes,
+    level1Config.spiderSpeeds,
+    level1Config.spiderType
   )
   spiders.setMovementPattern()
   spiders.enablePassthrough()
 
-  world1.drawWaves("water", "wave")
+  level1.drawWaves("water", "wave")
 
   const camera = new Camera()
   camera.attach(player.gameObj, 0, -200, null, 200)
   const UIManager = new UI()
-  UIManager.loadUIAssets()
   UIManager.displayLivesCount(player)
   UIManager.displayCoinCount(player)
 
@@ -65,46 +64,43 @@ scene("world-1", () => {
 })
 
 scene("world-2", () => {
-  setGravity(world2Config.gravity)
+  setGravity(level2Config.gravity)
 
-  const world2 = new World2()
-  world2.loadGeneralMapAssets()
-  world2.loadMapAssets()
-  world2.drawBackground("castle-background")
-  world2.drawMapLayout(level2Layout, level2Mappings)
+  const level2 = new Level()
+  level2.drawBackground("castle-background")
+  level2.drawMapLayout(level2Layout, level2Mappings)
 
   const player = new Player(
-    world2Config.playerStartPosX,
-    world2Config.playerStartPosY,
-    world2Config.playerSpeed
+    level2Config.playerStartPosX,
+    level2Config.playerStartPosY,
+    level2Config.playerSpeed
   )
   player.enablePassthrough()
   player.enableCoinPickUp()
   player.enableMobVunerability()
 
   const flames = new Flames(
-    world2Config.flamePositions.map((flamePos) => flamePos()),
-    world2Config.flameAmplitudes,
-    world2Config.flameType
+    level2Config.flamePositions.map((flamePos) => flamePos()),
+    level2Config.flameAmplitudes,
+    level2Config.flameType
   )
   flames.setMovementPattern()
 
   const spiders = new Spiders(
-    world2Config.spiderPositions.map((spiderPos) => spiderPos()),
-    world2Config.spiderAmplitudes,
-    world2Config.spiderSpeeds,
-    world2Config.spiderType
+    level2Config.spiderPositions.map((spiderPos) => spiderPos()),
+    level2Config.spiderAmplitudes,
+    level2Config.spiderSpeeds,
+    level2Config.spiderType
   )
   spiders.setMovementPattern()
   spiders.enablePassthrough()
 
-  world2.drawWaves("lava", "wave")
+  level2.drawWaves("lava", "wave")
 
   const camera = new Camera()
   camera.attach(player.gameObj, 0, -200, null, 200)
 
   const UIManager = new UI()
-  UIManager.loadUIAssets()
   UIManager.displayLivesCount(player)
   UIManager.displayCoinCount(player)
 

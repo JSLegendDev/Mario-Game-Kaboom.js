@@ -1,4 +1,4 @@
-export const world1Config = {
+export const level1Config = {
   gravity: 1400,
   playerSpeed: 400,
   playerStartPosX: 1500,

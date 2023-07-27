@@ -30,7 +30,8 @@ const scenes = {
       level1Config.playerStartPosX,
       level1Config.playerStartPosY,
       level1Config.playerSpeed,
-      1
+      1,
+      false
     )
     player.enablePassthrough()
     player.enableCoinPickUp()
@@ -74,7 +75,8 @@ const scenes = {
       level2Config.playerStartPosX,
       level2Config.playerStartPosY,
       level2Config.playerSpeed,
-      2
+      2,
+      true
     )
     player.enablePassthrough()
     player.enableCoinPickUp()

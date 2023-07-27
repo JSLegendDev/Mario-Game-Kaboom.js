@@ -9,7 +9,8 @@ export class Player {
 
   coins = 0
 
-  constructor(posX, posY, speed, currentLevelScene) {
+  constructor(posX, posY, speed, currentLevelScene, isInTerminalScene) {
+    this.isInTerminalScene = isInTerminalScene
     this.currentLevelScene = currentLevelScene
     this.makePlayer(posX, posY)
     this.speed = speed
@@ -133,7 +134,7 @@ export class Player {
     onUpdate(() => {
       coinCountUI.text = `${this.coins} / ${coinCountUI.fullCoinCount}`
       if (this.coins === coinCountUI.fullCoinCount) {
-        go(this.currentLevelScene + 1)
+        go(this.isInTerminalScene ? 1 : this.currentLevelScene + 1)
       }
     })
   }

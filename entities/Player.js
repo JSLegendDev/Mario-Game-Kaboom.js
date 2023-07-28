@@ -38,6 +38,10 @@ export class Player {
       if (collision.target.is("passthrough") && this.gameObj.isJumping()) {
         collision.preventResolution()
       }
+
+      if (collision.target.is("passthrough") && isKeyDown("down")) {
+        collision.preventResolution()
+      }
     })
   }
 

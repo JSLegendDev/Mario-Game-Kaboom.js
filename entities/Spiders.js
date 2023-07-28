@@ -11,7 +11,10 @@ export class Spiders {
         add([
           sprite(`spider-${type}`, { anim: "crawl" }),
           pos(position),
-          area({ shape: new Rect(vec2(0), 20, 12), offset: vec2(0, 2) }),
+          area({
+            shape: new Rect(vec2(0, 4.5), 20, 6),
+            collisionIgnore: ["spiders"],
+          }),
           anchor("center"),
           body(),
           scale(4),

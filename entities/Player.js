@@ -9,6 +9,8 @@ export class Player {
 
   coins = 0
 
+  hasJumpedOnce = false
+
   constructor(posX, posY, speed, currentLevelScene, isInTerminalScene) {
     this.isInTerminalScene = isInTerminalScene
     this.currentLevelScene = currentLevelScene
@@ -68,7 +70,20 @@ export class Player {
     })
 
     onKeyPress("space", () => {
-      if (this.gameObj.isGrounded() && !this.isRespawning) this.gameObj.jump()
+      if (this.gameObj.isGrounded() && !this.isRespawning) {
+        this.hasJumpedOnce = true
+        this.gameObj.jump()
+      }
+
+      //coyote time
+      if (
+        !this.gameObj.isGrounded() &&
+        time() - this.timeSinceLastGrounded < 0.2 &&
+        !this.hasJumpedOnce
+      ) {
+        this.hasJumpedOnce = true
+        this.gameObj.jump()
+      }
     })
 
     onKeyRelease(() => {
@@ -100,6 +115,11 @@ export class Player {
 
   update() {
     onUpdate(() => {
+      if (this.gameObj.isGrounded()) {
+        this.hasJumpedOnce = false
+        this.timeSinceLastGrounded = time()
+      }
+
       this.heightDelta = this.previousHeight - this.gameObj.pos.y
       this.previousHeight = this.gameObj.pos.y
 

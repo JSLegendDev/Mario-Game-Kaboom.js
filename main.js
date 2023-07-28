@@ -99,7 +99,10 @@ const scenes = {
     spiders.setMovementPattern()
     spiders.enablePassthrough()
 
-    const axes = new Axes([vec2(2100, -50)], [1])
+    const axes = new Axes(
+      level2Config.axesPositions.map((axePos) => axePos()),
+      level2Config.axesSwingTimes
+    )
     axes.swing()
 
     level2.drawWaves("lava", "wave")

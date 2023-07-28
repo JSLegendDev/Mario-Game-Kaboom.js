@@ -91,6 +91,7 @@ export class Player {
     this.gameObj.onCollide("fish", () => this.respawnPlayer())
     this.gameObj.onCollide("spiders", () => this.respawnPlayer())
     this.gameObj.onCollide("flames", () => this.respawnPlayer())
+    this.gameObj.onCollide("axes", () => this.respawnPlayer())
   }
 
   update() {

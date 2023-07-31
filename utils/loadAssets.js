@@ -165,4 +165,5 @@ export function loadAssets() {
     },
   })
   loadSprite("axe", "./assets/Axe_Trap.png")
+  loadSprite("saw", "./assets/Circular_Saw.png")
 }

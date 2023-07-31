@@ -12,6 +12,7 @@ import { level2Layout, level2Mappings } from "./content/level2/level2Layout.js"
 import { loadAssets } from "./utils/loadAssets.js"
 import { Level } from "./entities/Level.js"
 import { Axes } from "./entities/Axes.js"
+import { Saws } from "./entities/Saws.js"
 
 kaboom({
   width: 1280,
@@ -104,6 +105,9 @@ const scenes = {
       level2Config.axesSwingTimes
     )
     axes.swing()
+
+    const saws = new Saws([vec2(2100, -50)], 100)
+    saws.rotate()
 
     level2.drawWaves("lava", "wave")
 

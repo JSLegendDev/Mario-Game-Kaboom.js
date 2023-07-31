@@ -12,6 +12,7 @@ export class Saws {
           pos(position),
           scale(4),
           rotate(),
+          state("rotate", ["rotate"]),
         ])
       )
     }
@@ -19,21 +20,17 @@ export class Saws {
 
   rotate() {
     for (const saw of this.saws) {
-      tween(
-        saw.angle,
-        360,
-        2,
-        (currAngle) => {
-          if (currAngle > 359) {
-            console.log(currAngle)
-            saw.angle = 0
-            return
-          }
-
-          saw.angle = currAngle
-        },
-        easings.linear
-      )
+      saw.onStateEnter("rotate", async () => {
+        await tween(
+          saw.angle,
+          360,
+          1.5,
+          (currAngle) => (saw.angle = currAngle),
+          easings.linear
+        )
+        saw.angle = 0
+        saw.enterState("rotate")
+      })
     }
   }
 }

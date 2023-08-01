@@ -23,7 +23,26 @@ kaboom({
 })
 
 const scenes = {
-  menu: () => {},
+  menu: () => {
+    const level = new Level()
+    setGravity(level1Config.gravity)
+    level.drawBackground("forest-background")
+    add([sprite("logo"), fixed(), pos(40, 0), scale(8)])
+    level.drawMapLayout(level1Layout, level1Mappings)
+
+    const player = new Player(
+      level1Config.playerStartPosX,
+      level1Config.playerStartPosY,
+      0,
+      0,
+      false
+    )
+
+    const camera = new Camera()
+    camera.attach(player.gameObj, -300, 500, null, 200)
+
+    onKeyDown("enter", () => go(1))
+  },
   1: () => {
     const level1 = new Level()
     setGravity(level1Config.gravity)
@@ -168,4 +187,4 @@ for (const key in scenes) {
   scene(key, scenes[key])
 }
 
-go(3)
+go("menu")

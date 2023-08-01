@@ -13,6 +13,7 @@ export class Saws {
           scale(4),
           rotate(),
           state("rotate-left", ["rotate-left", "rotate-right"]),
+          "saws",
         ])
       )
     }

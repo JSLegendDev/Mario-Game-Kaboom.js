@@ -106,7 +106,10 @@ const scenes = {
     )
     axes.swing()
 
-    const saws = new Saws([vec2(1500, 200)], [200])
+    const saws = new Saws(
+      level2Config.sawPositions.map((sawPos) => sawPos()),
+      level2Config.sawRanges
+    )
     saws.rotate()
 
     level2.drawWaves("lava", "wave")

@@ -166,4 +166,57 @@ export function loadAssets() {
   })
   loadSprite("axe", "./assets/Axe_Trap.png")
   loadSprite("saw", "./assets/Circular_Saw.png")
+
+  loadSprite("sky-background-0", "./assets/Sky_Background_0.png")
+  loadSprite("sky-background-1", "./assets/Sky_Background_1.png")
+  loadSprite("sky-background-2", "./assets/Sky_Background_2.png")
+
+  loadSprite("rock-tileset", "./assets/Grass_Rock_Tileset.png", {
+    sliceX: 3,
+    sliceY: 4,
+    anims: {
+      tl: 0,
+      tm: 1,
+      tr: 2,
+      ml: 3,
+      mm: 4,
+      mr: 5,
+      "ml-2": 6,
+      "mm-2": 7,
+      "mr-2": 8,
+    },
+  })
+  loadSprite("rock-oneway-tileset", "./assets/Grass_Rock_Oneway.png", {
+    sliceX: 3,
+    sliceY: 4,
+    anims: {
+      tl: 0,
+      tm: 1,
+      tr: 2,
+      ml: 3,
+      mm: 4,
+      mr: 5,
+      "ml-2": 6,
+      "mm-2": 7,
+      "mr-2": 8,
+    },
+  })
+  loadSprite("clouds", "./assets/Clouds.png", {
+    sliceX: 8,
+    sliceY: 1,
+    anims: {
+      wave: {
+        from: 0,
+        to: 7,
+        speed: 16,
+        loop: true,
+      },
+      "wave-reversed": {
+        from: 7,
+        to: 0,
+        speed: 16,
+        loop: true,
+      },
+    },
+  })
 }

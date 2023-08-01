@@ -25,6 +25,6 @@ export class Level {
   }
 
   drawBackground(bgSpriteName) {
-    this.background = add([sprite(bgSpriteName), fixed(), scale(4)])
+    add([sprite(bgSpriteName), fixed(), scale(4)])
   }
 }

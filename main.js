@@ -13,6 +13,8 @@ import { loadAssets } from "./utils/loadAssets.js"
 import { Level } from "./entities/Level.js"
 import { Axes } from "./entities/Axes.js"
 import { Saws } from "./entities/Saws.js"
+import { level3Config } from "./content/level3/config.js"
+import { level3Layout, level3Mappings } from "./content/level3/level3Layout.js"
 
 kaboom({
   width: 1280,
@@ -78,7 +80,7 @@ const scenes = {
       level2Config.playerStartPosY,
       level2Config.playerSpeed,
       2,
-      true
+      false
     )
     player.enablePassthrough()
     player.enableCoinPickUp()
@@ -124,6 +126,37 @@ const scenes = {
     player.updateLives(UIManager.livesCountUI)
     player.updateCoinCount(UIManager.coinCountUI)
   },
+  3: () => {
+    setGravity(level3Config.gravity)
+    const level3 = new Level()
+    level3.drawBackground("sky-background-0")
+    level3.drawBackground("sky-background-1")
+    level3.drawBackground("sky-background-2")
+    level3.drawMapLayout(level3Layout, level3Mappings)
+
+    const player = new Player(
+      level3Config.playerStartPosX,
+      level3Config.playerStartPosY,
+      level3Config.playerSpeed,
+      3,
+      true
+    )
+    player.enablePassthrough()
+    player.enableCoinPickUp()
+    player.enableMobVunerability()
+
+    level3.drawWaves("clouds", "wave")
+
+    const camera = new Camera()
+    camera.attach(player.gameObj, 0, -200, null, 200)
+
+    const UIManager = new UI()
+    UIManager.displayLivesCount(player)
+    UIManager.displayCoinCount(player)
+
+    player.updateLives(UIManager.livesCountUI)
+    player.updateCoinCount(UIManager.coinCountUI)
+  },
   gameover: () => {
     onKeyDown("enter", () => go(1))
   },
@@ -135,4 +168,4 @@ for (const key in scenes) {
   scene(key, scenes[key])
 }
 
-go(2)
+go(3)

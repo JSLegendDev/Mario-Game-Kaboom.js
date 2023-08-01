@@ -78,7 +78,7 @@ export class Player {
       //coyote time
       if (
         !this.gameObj.isGrounded() &&
-        time() - this.timeSinceLastGrounded < 0.2 &&
+        time() - this.timeSinceLastGrounded < 0.1 &&
         !this.hasJumpedOnce
       ) {
         this.hasJumpedOnce = true

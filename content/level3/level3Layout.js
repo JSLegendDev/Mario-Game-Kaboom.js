@@ -66,7 +66,7 @@ export const level3Layout = [
     "                                                                                                                               ",
     "                                                                                                                               ",
     "                                                                                                                               ",
-    "                                                                                                                               ",
+    "                                                     @                                                                         ",
     "                                                                                                                               ",
     "                                            9b      9b                                                                         ",
     "                                            ce      ce                                                                         ",

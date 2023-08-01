@@ -1,9 +1,4 @@
 export class UI {
-  loadUIAssets() {
-    loadFont("Round", "assets/Round9x13.ttf")
-    loadSprite("coin-icon", "assets/Coins_Ui.png")
-  }
-
   displayLivesCount(player) {
     this.livesCountUI = add([
       text(`Lives Left: ${player.lives}`, {

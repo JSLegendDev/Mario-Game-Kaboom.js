@@ -11,6 +11,8 @@ export class Player {
 
   hasJumpedOnce = false
 
+  coyoteLapse = 0.1
+
   constructor(posX, posY, speed, currentLevelScene, isInTerminalScene) {
     this.isInTerminalScene = isInTerminalScene
     this.currentLevelScene = currentLevelScene
@@ -78,7 +80,7 @@ export class Player {
       //coyote time
       if (
         !this.gameObj.isGrounded() &&
-        time() - this.timeSinceLastGrounded < 0.1 &&
+        time() - this.timeSinceLastGrounded < this.coyoteLapse &&
         !this.hasJumpedOnce
       ) {
         this.hasJumpedOnce = true

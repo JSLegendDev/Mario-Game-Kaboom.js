@@ -114,6 +114,7 @@ export class Player {
     this.gameObj.onCollide("flames", () => this.respawnPlayer())
     this.gameObj.onCollide("axes", () => this.respawnPlayer())
     this.gameObj.onCollide("saws", () => this.respawnPlayer())
+    this.gameObj.onCollide("birds", () => this.respawnPlayer())
   }
 
   update() {
@@ -154,7 +155,7 @@ export class Player {
 
   updateLives(livesCountUI) {
     onUpdate(() => {
-      livesCountUI.text = `Lives Left : ${this.lives}`
+      livesCountUI.text = `${this.lives}`
     })
   }
 

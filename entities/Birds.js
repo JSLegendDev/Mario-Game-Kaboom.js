@@ -6,7 +6,7 @@ export class Birds {
       this.birds.push(
         add([
           sprite(`bird-${type}`, { anim: "fly" }),
-          area({ shape: new Rect(vec2(0), 12, 12) }),
+          area({ shape: new Rect(vec2(0), 10, 10) }),
           anchor("center"),
           pos(position),
           scale(4),

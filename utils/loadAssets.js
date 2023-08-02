@@ -220,4 +220,28 @@ export function loadAssets() {
       },
     },
   })
+  loadSprite("bird-1", "./assets/Bird_1.png", {
+    sliceX: 3,
+    sliceY: 1,
+    anims: {
+      fly: {
+        from: 0,
+        to: 2,
+        speed: 9,
+        loop: true,
+      },
+    },
+  })
+  loadSprite("bird-2", "./assets/Bird_2.png", {
+    sliceX: 3,
+    sliceY: 1,
+    anims: {
+      fly: {
+        from: 0,
+        to: 2,
+        speed: 9,
+        loop: true,
+      },
+    },
+  })
 }

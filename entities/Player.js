@@ -162,7 +162,7 @@ export class Player {
     onUpdate(() => {
       coinCountUI.text = `${this.coins} / ${coinCountUI.fullCoinCount}`
       if (this.coins === coinCountUI.fullCoinCount) {
-        go(this.isInTerminalScene ? 1 : this.currentLevelScene + 1)
+        go(this.isInTerminalScene ? "end" : this.currentLevelScene + 1)
       }
     })
   }

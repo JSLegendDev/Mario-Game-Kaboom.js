@@ -15,6 +15,7 @@ import { Axes } from "./entities/Axes.js"
 import { Saws } from "./entities/Saws.js"
 import { level3Config } from "./content/level3/config.js"
 import { level3Layout, level3Mappings } from "./content/level3/level3Layout.js"
+import { Birds } from "./entities/Birds.js"
 
 kaboom({
   width: 1280,
@@ -25,22 +26,8 @@ kaboom({
 const scenes = {
   menu: () => {
     const level = new Level()
-    setGravity(level1Config.gravity)
     level.drawBackground("forest-background")
     add([sprite("logo"), fixed(), pos(40, 0), scale(8)])
-    level.drawMapLayout(level1Layout, level1Mappings)
-
-    const player = new Player(
-      level1Config.playerStartPosX,
-      level1Config.playerStartPosY,
-      0,
-      0,
-      false
-    )
-
-    const camera = new Camera()
-    camera.attach(player.gameObj, -300, 500, null, 200)
-
     onKeyDown("enter", () => go(1))
   },
   1: () => {
@@ -81,6 +68,7 @@ const scenes = {
     const camera = new Camera()
     camera.attach(player.gameObj, 0, -200, null, 200)
     const UIManager = new UI()
+    UIManager.addDarkBg()
     UIManager.displayLivesCount(player)
     UIManager.displayCoinCount(player)
 
@@ -139,6 +127,7 @@ const scenes = {
     camera.attach(player.gameObj, 0, -200, null, 200)
 
     const UIManager = new UI()
+    UIManager.addDarkBg()
     UIManager.displayLivesCount(player)
     UIManager.displayCoinCount(player)
 
@@ -166,10 +155,19 @@ const scenes = {
 
     level3.drawWaves("clouds", "wave")
 
+    const birds = new Birds(
+      level3Config.birdPositions.map((birdPos) => birdPos()),
+      level3Config.birdRanges,
+      level3Config.birdType
+    )
+
+    birds.setMovementPattern()
+
     const camera = new Camera()
     camera.attach(player.gameObj, 0, -200, null, 200)
 
     const UIManager = new UI()
+    UIManager.addDarkBg()
     UIManager.displayLivesCount(player)
     UIManager.displayCoinCount(player)
 
@@ -179,6 +177,9 @@ const scenes = {
   gameover: () => {
     onKeyDown("enter", () => go(1))
   },
+  end: () => {
+    onKeyDown("enter", () => go("menu"))
+  },
 }
 
 loadAssets()
@@ -187,4 +188,4 @@ for (const key in scenes) {
   scene(key, scenes[key])
 }
 
-go("menu")
+go(3)

@@ -25,4 +25,8 @@ export class UI {
 
     this.coinCountUI.add([sprite("coin-icon"), pos(-60, 0), scale(3), fixed()])
   }
+
+  addDarkBg() {
+    add([rect(270, 130), color(0, 0, 0), fixed()])
+  }
 }

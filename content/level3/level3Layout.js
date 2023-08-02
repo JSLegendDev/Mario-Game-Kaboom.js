@@ -1,80 +1,21 @@
-export const level3Mappings = {
-  0: () => [
-    sprite("rock-tileset", { anim: "tl" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  1: () => [
-    sprite("rock-tileset", { anim: "tm" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  2: () => [
-    sprite("rock-tileset", { anim: "tr" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  3: () => [
-    sprite("rock-tileset", { anim: "ml" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  4: () => [sprite("rock-tileset", { anim: "mm" }), offscreen()],
-  5: () => [
-    sprite("rock-tileset", { anim: "mr" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  6: () => [sprite("rock-tileset", { anim: "ml-2" }), offscreen()],
-  7: () => [sprite("rock-tileset", { anim: "mm-2" }), offscreen()],
-  8: () => [sprite("rock-tileset", { anim: "mr-2" }), offscreen()],
-  9: () => [
-    sprite("rock-oneway-tileset", { anim: "tl" }),
-    area({ shape: new Rect(vec2(0), 16, 3) }),
-    "passthrough",
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  a: () => [
-    sprite("rock-oneway-tileset", { anim: "tm" }),
-    area({ shape: new Rect(vec2(0), 16, 3) }),
-    "passthrough",
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  b: () => [
-    sprite("rock-oneway-tileset", { anim: "tr" }),
-    area({ shape: new Rect(vec2(0), 16, 3) }),
-    "passthrough",
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  c: () => [sprite("rock-oneway-tileset", { anim: "ml" }), offscreen()],
-  d: () => [sprite("rock-oneway-tileset", { anim: "mm" }), offscreen()],
-  e: () => [sprite("rock-oneway-tileset", { anim: "mr" }), offscreen()],
-  o: () => [sprite("bridge"), area(), body({ isStatic: true }), offscreen()],
-  "@": () => [sprite("coin"), area(), "coin", offscreen()],
-}
+import { generateMappings } from "../generalMappings.js"
+
+export const level3Mappings = generateMappings("rock")
 
 export const level3Layout = [
   [
     "                                                                                                                               ",
+    "                                                                               @                                               ",
     "                                                                                                                               ",
-    "                                                                                                                               ",
-    "                                                     @                                                                         ",
-    "                                                                                                                               ",
-    "                                            9b      9b                                                                         ",
-    "                                            ce      ce                                                                         ",
-    "                                      9ab   ce      ce                                                                         ",
-    "                   9aaab     9aaab    cde   ce      ce                                                                         ",
-    "                   cddde     cddde    cde   ce      ce                                                                         ",
-    "                   cddde     cddde    cde   ce      ce                                                                         ",
-    "                   cddde     cddde    cde   ce      ce                                                                         ",
+    "                                                     @       @            9aaaaab                                              ",
+    "                                                                          cddddde   @                       @                  ",
+    "                                            9b      9b      9b            cddddde                             @                ",
+    "                                            ce      ce      ce    0111111111111111112ooooooooooooooooo0111112                  ",
+    "                                      9ab   ce      ce      ce    3444444444444444445                 3444445                  ",
+    "                   9aaab     9aaab    cde   ce      ce      ce    3444444444444444445                 3444445 @                ",
+    "                   cddde     cddde    cde   ce      ce      ce    3444444444444444445                 3444445                  ",
+    "                   cddde     cddde    cde   ce      ce      ce    3444444444444444445                 3444445                  ",
+    "                   cddde     cddde    cde   ce      ce      ce    3444444444444444445                 3444445                  ",
   ],
   [
     "                                                                                                                               ",

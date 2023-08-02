@@ -1,65 +1,6 @@
-export const level1Mappings = {
-  0: () => [
-    sprite("grass-tileset", { anim: "tl" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  1: () => [
-    sprite("grass-tileset", { anim: "tm" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  2: () => [
-    sprite("grass-tileset", { anim: "tr" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  3: () => [
-    sprite("grass-tileset", { anim: "ml" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  4: () => [sprite("grass-tileset", { anim: "mm" }), offscreen()],
-  5: () => [
-    sprite("grass-tileset", { anim: "mr" }),
-    area(),
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  6: () => [sprite("grass-tileset", { anim: "ml-2" }), offscreen()],
-  7: () => [sprite("grass-tileset", { anim: "mm-2" }), offscreen()],
-  8: () => [sprite("grass-tileset", { anim: "mr-2" }), offscreen()],
-  9: () => [
-    sprite("grass-oneway-tileset", { anim: "tl" }),
-    area({ shape: new Rect(vec2(0), 16, 3) }),
-    "passthrough",
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  a: () => [
-    sprite("grass-oneway-tileset", { anim: "tm" }),
-    area({ shape: new Rect(vec2(0), 16, 3) }),
-    "passthrough",
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  b: () => [
-    sprite("grass-oneway-tileset", { anim: "tr" }),
-    area({ shape: new Rect(vec2(0), 16, 3) }),
-    "passthrough",
-    body({ isStatic: true }),
-    offscreen(),
-  ],
-  c: () => [sprite("grass-oneway-tileset", { anim: "ml" }), offscreen()],
-  d: () => [sprite("grass-oneway-tileset", { anim: "mm" }), offscreen()],
-  e: () => [sprite("grass-oneway-tileset", { anim: "mr" }), offscreen()],
-  o: () => [sprite("bridge"), area(), body({ isStatic: true }), offscreen()],
-  "@": () => [sprite("coin"), area(), "coin", offscreen()],
-}
+import { generateMappings } from "../generalMappings.js"
+
+export const level1Mappings = generateMappings("grass")
 
 export const level1Layout = [
   [

@@ -129,6 +129,7 @@ const scenes = {
     onKeyPress("enter", () => go(1))
   },
   1: () => {
+    play("water-ambience", { volume: 0.02, loop: true })
     const level1 = new Level()
     setGravity(level1Config.gravity)
     level1.drawBackground("forest-background")

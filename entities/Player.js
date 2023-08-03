@@ -53,6 +53,7 @@ export class Player {
     this.gameObj.onCollide("coin", (coin) => {
       this.coins++
       destroy(coin)
+      play("coin")
     })
   }
 
@@ -75,6 +76,7 @@ export class Player {
       if (this.gameObj.isGrounded() && !this.isRespawning) {
         this.hasJumpedOnce = true
         this.gameObj.jump()
+        play("jump")
       }
 
       //coyote time
@@ -85,6 +87,7 @@ export class Player {
       ) {
         this.hasJumpedOnce = true
         this.gameObj.jump()
+        play("jump")
       }
     })
 

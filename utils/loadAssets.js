@@ -1,4 +1,9 @@
 export function loadAssets() {
+  loadSound("jump", "./sounds/jump.wav")
+  loadSound("coin", "./sounds/coin.wav")
+  loadSound("water-ambience", "./sounds/water-ambience.mp3")
+  loadSound("spider-attack", "./sounds/spider-attack.mp3")
+
   // controls prompts
   loadSprite("up", "./assets/Arrow_Up_Key_Dark.png")
   loadSprite("down", "./assets/Arrow_Down_Key_Dark.png")

@@ -40,6 +40,7 @@ export class Spiders {
         }
 
         spider.jump()
+        play("spider-attack", { volume: 0.6 })
         spider.enterState("crawl-left")
       })
 

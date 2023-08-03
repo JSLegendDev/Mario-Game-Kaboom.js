@@ -3,6 +3,8 @@ export function loadAssets() {
   loadSound("coin", "./sounds/coin.wav")
   loadSound("water-ambience", "./sounds/water-ambience.mp3")
   loadSound("spider-attack", "./sounds/spider-attack.mp3")
+  loadSound("hit", "./sounds/hit.wav")
+  loadSound("lava-ambience", "./sounds/lava.wav")
 
   // controls prompts
   loadSprite("up", "./assets/Arrow_Up_Key_Dark.png")

@@ -34,6 +34,6 @@ export class UI {
   }
 
   addDarkBg() {
-    add([rect(250, 130), color(0, 0, 0), fixed()])
+    add([rect(270, 130), color(0, 0, 0), fixed()])
   }
 }

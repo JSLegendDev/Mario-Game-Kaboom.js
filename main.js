@@ -175,6 +175,8 @@ const scenes = {
     player.updateCoinCount(UIManager.coinCountUI)
   },
   2: () => {
+    stop("water-ambience")
+    play("lava-ambience")
     setGravity(level2Config.gravity)
 
     const level2 = new Level()

@@ -5,6 +5,7 @@ export function loadAssets() {
   loadSound("spider-attack", "./sounds/spider-attack.mp3")
   loadSound("hit", "./sounds/hit.wav")
   loadSound("lava-ambience", "./sounds/lava.wav")
+  loadSound("confirm-ui", "./sounds/confirm-ui.wav")
 
   // controls prompts
   loadSprite("up", "./assets/Arrow_Up_Key_Dark.png")

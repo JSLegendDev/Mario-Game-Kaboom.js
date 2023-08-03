@@ -67,7 +67,10 @@ const scenes = {
       startMsg.enterState("flash-up")
     })
 
-    onKeyPress("enter", () => go("controls"))
+    onKeyPress("enter", () => {
+      play("confirm-ui")
+      go("controls")
+    })
   },
   controls: () => {
     const level = new Level()
@@ -126,7 +129,10 @@ const scenes = {
       startMsg.enterState("flash-up")
     })
 
-    onKeyPress("enter", () => go(1))
+    onKeyPress("enter", () => {
+      play("confirm-ui")
+      go(1)
+    })
   },
   1: () => {
     play("water-ambience", { volume: 0.02, loop: true })
@@ -314,10 +320,16 @@ const scenes = {
       restartMsg.enterState("flash-up")
     })
 
-    onKeyPress("enter", () => go(1))
+    onKeyPress("enter", () => {
+      play("confirm-ui")
+      go(1)
+    })
   },
   end: () => {
-    onKeyPress("enter", () => go("menu"))
+    onKeyPress("enter", () => {
+      play("confirm-ui")
+      go("menu")
+    })
   },
 }
 

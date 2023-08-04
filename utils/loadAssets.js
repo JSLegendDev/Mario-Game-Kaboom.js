@@ -8,6 +8,7 @@ export function loadAssets() {
   loadSound("confirm-ui", "./sounds/confirm-ui.wav")
   loadSound("swinging-axe", "./sounds/swinging-axe.mp3")
   loadSound("saw", "./sounds/saw.wav")
+  loadSound("fireball", "./sounds/fireball.wav")
 
   // controls prompts
   loadSprite("up", "./assets/Arrow_Up_Key_Dark.png")

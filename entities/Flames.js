@@ -12,6 +12,7 @@ export class Flames {
           scale(4),
           rotate(),
           state("launch", ["launch", "rotate", "fall"]),
+          offscreen(),
           "flames",
         ])
       )
@@ -21,6 +22,7 @@ export class Flames {
   setMovementPattern() {
     for (const [index, flame] of this.flames.entries()) {
       flame.onStateEnter("launch", async () => {
+        if (!flame.isOffScreen()) play("fireball")
         await tween(
           flame.pos.y,
           flame.pos.y - this.amplitudes[index],

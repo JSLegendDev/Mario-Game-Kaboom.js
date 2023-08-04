@@ -13,6 +13,7 @@ export class Saws {
           scale(4),
           rotate(),
           state("rotate-left", ["rotate-left", "rotate-right"]),
+          offscreen(),
           "saws",
         ])
       )
@@ -22,6 +23,7 @@ export class Saws {
   rotate() {
     for (const [index, saw] of this.saws.entries()) {
       saw.onStateEnter("rotate-left", async () => {
+        if (!saw.isOffScreen()) play("saw", { volume: 0.8, seek: 10 })
         await Promise.all([
           tween(
             saw.pos.x,
@@ -44,6 +46,7 @@ export class Saws {
       })
 
       saw.onStateEnter("rotate-right", async () => {
+        if (!saw.isOffScreen()) play("saw", { volume: 0.8, seek: 10 })
         await Promise.all([
           tween(
             saw.pos.x,

@@ -23,6 +23,8 @@ kaboom({
   letterbox: true,
 })
 
+const soundMap = {}
+
 const scenes = {
   menu: () => {
     const level = new Level()
@@ -68,7 +70,7 @@ const scenes = {
     })
 
     onKeyPress("enter", () => {
-      play("confirm-ui")
+      play("confirm-ui", { speed: 1.5 })
       go("controls")
     })
   },
@@ -130,12 +132,15 @@ const scenes = {
     })
 
     onKeyPress("enter", () => {
-      play("confirm-ui")
+      play("confirm-ui", { speed: 1.5 })
       go(1)
     })
   },
   1: () => {
-    play("water-ambience", { volume: 0.02, loop: true })
+    soundMap.waterAmbience = play("water-ambience", {
+      volume: 0.02,
+      loop: true,
+    })
     const level1 = new Level()
     setGravity(level1Config.gravity)
     level1.drawBackground("forest-background")
@@ -181,8 +186,8 @@ const scenes = {
     player.updateCoinCount(UIManager.coinCountUI)
   },
   2: () => {
-    stop("water-ambience")
-    play("lava-ambience")
+    soundMap.waterAmbience.paused = true
+    soundMap.lavaAmbience = play("lava-ambience", { loop: true })
     setGravity(level2Config.gravity)
 
     const level2 = new Level()
@@ -242,6 +247,7 @@ const scenes = {
     player.updateCoinCount(UIManager.coinCountUI)
   },
   3: () => {
+    soundMap.lavaAmbience.paused = true
     setGravity(level3Config.gravity)
     const level3 = new Level()
     level3.drawBackground("sky-background-0")

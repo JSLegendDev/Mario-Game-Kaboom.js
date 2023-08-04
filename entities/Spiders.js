@@ -19,6 +19,7 @@ export class Spiders {
           body(),
           scale(4),
           state("idle", ["idle", "crawl-left", "crawl-right"]),
+          offscreen(),
           "spiders",
         ])
       )
@@ -40,7 +41,9 @@ export class Spiders {
         }
 
         spider.jump()
-        play("spider-attack", { volume: 0.6 })
+        if (!spider.isOffScreen()) {
+          play("spider-attack", { volume: 0.6 })
+        }
         spider.enterState("crawl-left")
       })
 

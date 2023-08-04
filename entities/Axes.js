@@ -16,6 +16,7 @@ export class Axes {
           anchor(vec2(0, -0.75)),
           state("swing-left", ["swing-left", "swing-right"]),
           rotate(),
+          offscreen(),
           "axes",
         ])
       )
@@ -25,6 +26,10 @@ export class Axes {
   swing() {
     for (const [index, axe] of this.axes.entries()) {
       axe.onStateEnter("swing-left", async () => {
+        if (!axe.isOffScreen()) {
+          play("swinging-axe")
+        }
+
         await tween(
           axe.angle,
           90,
@@ -36,6 +41,10 @@ export class Axes {
       })
 
       axe.onStateEnter("swing-right", async () => {
+        if (!axe.isOffScreen()) {
+          play("swinging-axe")
+        }
+
         await tween(
           axe.angle,
           -90,

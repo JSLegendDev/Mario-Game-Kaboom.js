@@ -1,6 +1,7 @@
 export class Birds {
-  constructor(positions, ranges, type) {
+  constructor(positions, ranges, type, diveAttackThreshold) {
     this.ranges = ranges
+    this.diveAttackThreshold = diveAttackThreshold
     this.birds = []
     for (const position of positions) {
       this.birds.push(
@@ -17,6 +18,7 @@ export class Birds {
             "dive-attack-left",
             "dive-attack-right",
           ]),
+          offscreen(),
           "birds",
         ])
       )
@@ -35,7 +37,7 @@ export class Birds {
           easings.linear
         )
 
-        if (Math.random() > 0.5) {
+        if (Math.random() > this.diveAttackThreshold) {
           bird.enterState("dive-attack-left")
           return
         }
@@ -52,7 +54,7 @@ export class Birds {
           easings.linear
         )
 
-        if (Math.random() > 0.5) {
+        if (Math.random() > this.diveAttackThreshold) {
           bird.enterState("dive-attack-right")
           return
         }

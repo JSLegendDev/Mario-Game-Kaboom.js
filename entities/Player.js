@@ -13,11 +13,19 @@ export class Player {
 
   coyoteLapse = 0.1
 
-  constructor(posX, posY, speed, currentLevelScene, isInTerminalScene) {
+  constructor(
+    posX,
+    posY,
+    speed,
+    jumpForce,
+    currentLevelScene,
+    isInTerminalScene
+  ) {
     this.isInTerminalScene = isInTerminalScene
     this.currentLevelScene = currentLevelScene
     this.makePlayer(posX, posY)
     this.speed = speed
+    this.jumpForce = jumpForce
     this.previousHeight = this.gameObj.pos.y
     this.setPlayerControls()
     this.update()
@@ -28,7 +36,7 @@ export class Player {
     this.initialY = y
     this.gameObj = add([
       sprite("player", { anim: "idle" }),
-      area({ shape: new Rect(vec2(0, 3), 10, 10) }),
+      area({ shape: new Rect(vec2(0, 3), 8, 8) }),
       anchor("center"),
       pos(x, y),
       scale(4),
@@ -72,10 +80,10 @@ export class Player {
       this.isMoving = true
     })
 
-    onKeyPress("space", () => {
+    onKeyDown("space", () => {
       if (this.gameObj.isGrounded() && !this.isRespawning) {
         this.hasJumpedOnce = true
-        this.gameObj.jump()
+        this.gameObj.jump(this.jumpForce)
         play("jump")
       }
 
@@ -86,7 +94,7 @@ export class Player {
         !this.hasJumpedOnce
       ) {
         this.hasJumpedOnce = true
-        this.gameObj.jump()
+        this.gameObj.jump(this.jumpForce)
         play("jump")
       }
     })

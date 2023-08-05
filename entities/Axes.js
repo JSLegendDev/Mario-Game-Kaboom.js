@@ -23,35 +23,29 @@ export class Axes {
     }
   }
 
-  swing() {
+  async swing(axe, angle, swingTime) {
+    if (!axe.isOffScreen()) {
+      play("swinging-axe")
+    }
+
+    await tween(
+      axe.angle,
+      angle,
+      swingTime,
+      (val) => (axe.angle = val),
+      easings.easeInOutSine
+    )
+  }
+
+  setMovementPattern() {
     for (const [index, axe] of this.axes.entries()) {
       axe.onStateEnter("swing-left", async () => {
-        if (!axe.isOffScreen()) {
-          play("swinging-axe")
-        }
-
-        await tween(
-          axe.angle,
-          90,
-          this.swingTimes[index],
-          (val) => (axe.angle = val),
-          easings.easeInOutSine
-        )
+        await this.swing(axe, 90, this.swingTimes[index])
         axe.enterState("swing-right")
       })
 
       axe.onStateEnter("swing-right", async () => {
-        if (!axe.isOffScreen()) {
-          play("swinging-axe")
-        }
-
-        await tween(
-          axe.angle,
-          -90,
-          this.swingTimes[index],
-          (val) => (axe.angle = val),
-          easings.easeOutSine
-        )
+        await this.swing(axe, -90, this.swingTimes[index])
         axe.enterState("swing-left")
       })
     }

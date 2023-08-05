@@ -9,13 +9,13 @@ import { level1Config } from "./content/level1/config.js"
 import { level2Config } from "./content/level2/config.js"
 import { UI } from "./utils/UI.js"
 import { level2Layout, level2Mappings } from "./content/level2/level2Layout.js"
-import { loadAssets } from "./utils/loadAssets.js"
 import { Level } from "./entities/Level.js"
 import { Axes } from "./entities/Axes.js"
 import { Saws } from "./entities/Saws.js"
 import { level3Config } from "./content/level3/config.js"
 import { level3Layout, level3Mappings } from "./content/level3/level3Layout.js"
 import { Birds } from "./entities/Birds.js"
+import { load } from "./utils/loader.js"
 
 kaboom({
   width: 1280,
@@ -23,9 +23,14 @@ kaboom({
   letterbox: true,
 })
 
+load.fonts()
+load.assets()
+load.sounds()
+
 const soundMap = {}
 
 const scenes = {
+  buffer: () => go("menu"),
   menu: () => {
     const level = new Level()
     level.drawBackground("forest-background")
@@ -38,36 +43,11 @@ const scenes = {
       scale(8),
     ])
 
-    const startMsg = add([
-      text("Press [ Enter ] to Start Game", { size: 24, font: "Round" }),
-      area(),
-      anchor("center"),
-      pos(center().x, center().y + 100),
-      opacity(),
-      state("flash-up", ["flash-up", "flash-down"]),
-    ])
-
-    startMsg.onStateEnter("flash-up", async () => {
-      await tween(
-        startMsg.opacity,
-        0,
-        0.5,
-        (opacity) => (startMsg.opacity = opacity),
-        easings.linear
-      )
-      startMsg.enterState("flash-down")
-    })
-
-    startMsg.onStateEnter("flash-down", async () => {
-      await tween(
-        startMsg.opacity,
-        1,
-        0.5,
-        (opacity) => (startMsg.opacity = opacity),
-        easings.linear
-      )
-      startMsg.enterState("flash-up")
-    })
+    const UIManager = new UI()
+    UIManager.displayBlinkingUIMessage(
+      "Press [ Enter ] to Start Game",
+      vec2(center().x, center().y + 100)
+    )
 
     onKeyPress("enter", () => {
       play("confirm-ui", { speed: 1.5 })
@@ -100,36 +80,11 @@ const scenes = {
       pos(10, 100),
     ])
 
-    const startMsg = add([
-      text("Press [ Enter ] to Start Game", { size: 24, font: "Round" }),
-      area(),
-      anchor("center"),
-      pos(center().x, center().y + 300),
-      opacity(),
-      state("flash-up", ["flash-up", "flash-down"]),
-    ])
-
-    startMsg.onStateEnter("flash-up", async () => {
-      await tween(
-        startMsg.opacity,
-        0,
-        0.5,
-        (opacity) => (startMsg.opacity = opacity),
-        easings.linear
-      )
-      startMsg.enterState("flash-down")
-    })
-
-    startMsg.onStateEnter("flash-down", async () => {
-      await tween(
-        startMsg.opacity,
-        1,
-        0.5,
-        (opacity) => (startMsg.opacity = opacity),
-        easings.linear
-      )
-      startMsg.enterState("flash-up")
-    })
+    const UIManager = new UI()
+    UIManager.displayBlinkingUIMessage(
+      "Press [ Enter ] to Start Game",
+      vec2(center().x, center().y + 300)
+    )
 
     onKeyPress("enter", () => {
       play("confirm-ui", { speed: 1.5 })
@@ -150,6 +105,7 @@ const scenes = {
       level1Config.playerStartPosX,
       level1Config.playerStartPosY,
       level1Config.playerSpeed,
+      level1Config.jumpForce,
       1,
       false
     )
@@ -186,7 +142,7 @@ const scenes = {
     player.updateCoinCount(UIManager.coinCountUI)
   },
   2: () => {
-    soundMap.waterAmbience.paused = true
+    if (soundMap.waterAmbience) soundMap.waterAmbience.paused = true
     soundMap.lavaAmbience = play("lava-ambience", { loop: true })
     setGravity(level2Config.gravity)
 
@@ -198,6 +154,7 @@ const scenes = {
       level2Config.playerStartPosX,
       level2Config.playerStartPosY,
       level2Config.playerSpeed,
+      level2Config.jumpForce,
       2,
       false
     )
@@ -225,7 +182,7 @@ const scenes = {
       level2Config.axesPositions.map((axePos) => axePos()),
       level2Config.axesSwingTimes
     )
-    axes.swing()
+    axes.setMovementPattern()
 
     const saws = new Saws(
       level2Config.sawPositions.map((sawPos) => sawPos()),
@@ -247,7 +204,7 @@ const scenes = {
     player.updateCoinCount(UIManager.coinCountUI)
   },
   3: () => {
-    soundMap.lavaAmbience.paused = true
+    if (soundMap.lavaAmbience) soundMap.lavaAmbience.paused = true
     setGravity(level3Config.gravity)
     const level3 = new Level()
     level3.drawBackground("sky-background-0")
@@ -259,6 +216,7 @@ const scenes = {
       level3Config.playerStartPosX,
       level3Config.playerStartPosY,
       level3Config.playerSpeed,
+      level3Config.jumpForce,
       3,
       true
     )
@@ -271,7 +229,8 @@ const scenes = {
     const birds = new Birds(
       level3Config.birdPositions.map((birdPos) => birdPos()),
       level3Config.birdRanges,
-      level3Config.birdType
+      level3Config.birdType,
+      0.5
     )
 
     birds.setMovementPattern()
@@ -295,36 +254,12 @@ const scenes = {
       anchor("center"),
       pos(center()),
     ])
-    const restartMsg = add([
-      text("Press [ Enter ] to Restart", { size: 24, font: "Round" }),
-      area(),
-      anchor("center"),
-      pos(center().x, center().y + 100),
-      opacity(),
-      state("flash-up", ["flash-up", "flash-down"]),
-    ])
 
-    restartMsg.onStateEnter("flash-up", async () => {
-      await tween(
-        restartMsg.opacity,
-        0,
-        0.5,
-        (opacity) => (restartMsg.opacity = opacity),
-        easings.linear
-      )
-      restartMsg.enterState("flash-down")
-    })
-
-    restartMsg.onStateEnter("flash-down", async () => {
-      await tween(
-        restartMsg.opacity,
-        1,
-        0.5,
-        (opacity) => (restartMsg.opacity = opacity),
-        easings.linear
-      )
-      restartMsg.enterState("flash-up")
-    })
+    const UIManager = new UI()
+    UIManager.displayBlinkingUIMessage(
+      "Press [ Enter ] to Start Game",
+      vec2(center().x, center().y + 100)
+    )
 
     onKeyPress("enter", () => {
       play("confirm-ui")
@@ -332,6 +267,20 @@ const scenes = {
     })
   },
   end: () => {
+    add([rect(1280, 720), color(0, 0, 0)])
+    add([
+      text("You Won!", { size: 50, font: "Round" }),
+      area(),
+      anchor("center"),
+      pos(center()),
+    ])
+
+    const UIManager = new UI()
+    UIManager.displayBlinkingUIMessage(
+      "Press [ Enter ] to Play Again",
+      vec2(center().x, center().y + 100)
+    )
+
     onKeyPress("enter", () => {
       play("confirm-ui")
       go("menu")
@@ -339,10 +288,8 @@ const scenes = {
   },
 }
 
-loadAssets()
-
 for (const key in scenes) {
   scene(key, scenes[key])
 }
 
-go("menu")
+go("buffer")

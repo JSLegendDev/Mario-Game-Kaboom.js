@@ -12,6 +12,7 @@ export class Fish {
           scale(4),
           rotate(90),
           state("launch", ["launch", "rotate", "fall"]),
+          offscreen(),
           "fish",
         ])
       )

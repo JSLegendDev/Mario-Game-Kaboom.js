@@ -123,6 +123,46 @@ export class UI {
     })
   }
 
+  displayGameOverScreen() {
+    add([rect(1280, 720), color(0, 0, 0)])
+    add([
+      text("Game Over!", { size: 50, font: "Round" }),
+      area(),
+      anchor("center"),
+      pos(center()),
+    ])
+
+    this.displayBlinkingUIMessage(
+      "Press [ Enter ] to Start Game",
+      vec2(center().x, center().y + 100)
+    )
+
+    onKeyPress("enter", () => {
+      play("confirm-ui")
+      go(1)
+    })
+  }
+
+  displayEndGameScreen() {
+    add([rect(1280, 720), color(0, 0, 0)])
+    add([
+      text("You Won!", { size: 50, font: "Round" }),
+      area(),
+      anchor("center"),
+      pos(center()),
+    ])
+
+    this.displayBlinkingUIMessage(
+      "Press [ Enter ] to Play Again",
+      vec2(center().x, center().y + 100)
+    )
+
+    onKeyPress("enter", () => {
+      play("confirm-ui")
+      go("menu")
+    })
+  }
+
   addDarkBg() {
     add([rect(270, 130), color(0, 0, 0), fixed()])
   }

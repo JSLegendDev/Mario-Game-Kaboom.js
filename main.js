@@ -148,7 +148,7 @@ const scenes = {
   },
   3: () => {
     if (soundMap.lavaAmbience) soundMap.lavaAmbience.paused = true
-    soundMap.windAmbience = play("strong-wind", { loop: true })
+    soundMap.windAmbience = play("strong-wind", { volume: 0.2, loop: true })
     setGravity(level3Config.gravity)
     const level3 = new Level()
     level3.drawBackground("sky-background-0")
@@ -188,44 +188,8 @@ const scenes = {
     player.updateLives(UIManager.livesCountUI)
     player.updateCoinCount(UIManager.coinCountUI)
   },
-  gameover: async () => {
-    add([rect(1280, 720), color(0, 0, 0)])
-    add([
-      text("Game Over!", { size: 50, font: "Round" }),
-      area(),
-      anchor("center"),
-      pos(center()),
-    ])
-
-    UIManager.displayBlinkingUIMessage(
-      "Press [ Enter ] to Start Game",
-      vec2(center().x, center().y + 100)
-    )
-
-    onKeyPress("enter", () => {
-      play("confirm-ui")
-      go(1)
-    })
-  },
-  end: () => {
-    add([rect(1280, 720), color(0, 0, 0)])
-    add([
-      text("You Won!", { size: 50, font: "Round" }),
-      area(),
-      anchor("center"),
-      pos(center()),
-    ])
-
-    UIManager.displayBlinkingUIMessage(
-      "Press [ Enter ] to Play Again",
-      vec2(center().x, center().y + 100)
-    )
-
-    onKeyPress("enter", () => {
-      play("confirm-ui")
-      go("menu")
-    })
-  },
+  gameover: async () => UIManager.displayGameOverScreen(),
+  end: () => UIManager.displayEndGameScreen(),
 }
 
 for (const key in scenes) {

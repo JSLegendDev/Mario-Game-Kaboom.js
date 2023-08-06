@@ -1,4 +1,6 @@
-export class UI {
+import { bgSoundManager } from "./BGSoundManager.js"
+
+class UI {
   displayLivesCount(player) {
     this.livesCountUI = add([
       text(`${player.lives}`, {
@@ -124,6 +126,7 @@ export class UI {
   }
 
   displayGameOverScreen() {
+    bgSoundManager.pauseAllSounds()
     add([rect(1280, 720), color(0, 0, 0)])
     add([
       text("Game Over!", { size: 50, font: "Round" }),
@@ -144,6 +147,7 @@ export class UI {
   }
 
   displayEndGameScreen() {
+    bgSoundManager.pauseAllSounds()
     add([rect(1280, 720), color(0, 0, 0)])
     add([
       text("You Won!", { size: 50, font: "Round" }),
@@ -167,3 +171,5 @@ export class UI {
     add([rect(270, 130), color(0, 0, 0), fixed()])
   }
 }
+
+export const UIManager = new UI()

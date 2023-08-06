@@ -49,13 +49,14 @@ export class Spiders {
 
         if (previousState === "crawl-left") {
           spider.enterState("crawl-right")
-          return
+        } else {
+          spider.jump()
+          if (!spider.isOffScreen()) {
+            play("spider-attack", { volume: 0.6 })
+          }
+
+          spider.enterState("crawl-left")
         }
-
-        spider.jump()
-        if (!spider.isOffScreen()) play("spider-attack", { volume: 0.6 })
-
-        spider.enterState("crawl-left")
       })
 
       spider.onStateEnter("crawl-left", async () => {

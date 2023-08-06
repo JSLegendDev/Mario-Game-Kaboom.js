@@ -24,9 +24,7 @@ export class Axes {
   }
 
   async swing(axe, angle, swingTime) {
-    if (!axe.isOffScreen()) {
-      play("swinging-axe")
-    }
+    if (!axe.isOffScreen()) play("swinging-axe")
 
     await tween(
       axe.angle,

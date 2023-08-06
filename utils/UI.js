@@ -66,6 +66,28 @@ export class UI {
     })
   }
 
+  displayMainMenu() {
+    add([sprite("forest-background"), scale(4)])
+    add([
+      sprite("logo"),
+      fixed(),
+      area(),
+      anchor("center"),
+      pos(center().x, center().y - 200),
+      scale(8),
+    ])
+
+    this.displayBlinkingUIMessage(
+      "Press [ Enter ] to Start Game",
+      vec2(center().x, center().y + 100)
+    )
+
+    onKeyPress("enter", () => {
+      play("confirm-ui", { speed: 1.5 })
+      go("controls")
+    })
+  }
+
   addDarkBg() {
     add([rect(270, 130), color(0, 0, 0), fixed()])
   }

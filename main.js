@@ -31,27 +31,8 @@ const soundMap = {}
 
 const scenes = {
   menu: () => {
-    const level = new Level()
-    level.drawBackground("forest-background")
-    add([
-      sprite("logo"),
-      fixed(),
-      area(),
-      anchor("center"),
-      pos(center().x, center().y - 200),
-      scale(8),
-    ])
-
     const UIManager = new UI()
-    UIManager.displayBlinkingUIMessage(
-      "Press [ Enter ] to Start Game",
-      vec2(center().x, center().y + 100)
-    )
-
-    onKeyPress("enter", () => {
-      play("confirm-ui", { speed: 1.5 })
-      go("controls")
-    })
+    UIManager.displayMainMenu()
   },
   controls: () => {
     const level = new Level()

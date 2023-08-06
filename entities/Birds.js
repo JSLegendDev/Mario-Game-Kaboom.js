@@ -24,30 +24,26 @@ export class Birds {
     }
   }
 
+  async fly(bird, moveBy, duration) {
+    await tween(
+      bird.pos.x,
+      bird.pos.x + moveBy,
+      duration,
+      (posX) => (bird.pos.x = posX),
+      easings.linear
+    )
+  }
+
   setMovementPattern() {
     for (const [index, bird] of this.birds.entries()) {
       bird.onStateEnter("fly-left", async () => {
         bird.flipX = false
-        await tween(
-          bird.pos.x,
-          bird.pos.x - this.ranges[index],
-          0.5,
-          (posX) => (bird.pos.x = posX),
-          easings.linear
-        )
-
+        await this.fly(bird, -this.ranges[index], 0.5)
         bird.enterState("dive-attack-left")
       })
       bird.onStateEnter("fly-right", async () => {
         bird.flipX = true
-        await tween(
-          bird.pos.x,
-          bird.pos.x + this.ranges[index],
-          0.5,
-          (posX) => (bird.pos.x = posX),
-          easings.linear
-        )
-
+        await this.fly(bird, this.ranges[index], 0.5)
         bird.enterState("dive-attack-right")
       })
 

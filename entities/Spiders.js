@@ -26,6 +26,18 @@ export class Spiders {
     }
   }
 
+  async crawl(spider, moveBy, duration) {
+    if (spider.currAnim !== "crawl") spider.play("crawl")
+
+    await tween(
+      spider.pos.x,
+      spider.pos.x + moveBy,
+      duration,
+      (posX) => (spider.pos.x = posX),
+      easings.easeOutSine
+    )
+  }
+
   setMovementPattern() {
     for (const [index, spider] of this.spiders.entries()) {
       spider.onStateEnter("idle", async (previousState) => {
@@ -41,37 +53,26 @@ export class Spiders {
         }
 
         spider.jump()
-        if (!spider.isOffScreen()) {
-          play("spider-attack", { volume: 0.6 })
-        }
+        if (!spider.isOffScreen()) play("spider-attack", { volume: 0.6 })
+
         spider.enterState("crawl-left")
       })
 
       spider.onStateEnter("crawl-left", async () => {
-        if (spider.currAnim !== "crawl") spider.play("crawl")
         spider.flipX = false
 
-        await tween(
-          spider.pos.x,
-          spider.pos.x - this.amplitudes[index],
-          this.velocities[index],
-          (posX) => (spider.pos.x = posX),
-          easings.easeOutSine
+        await this.crawl(
+          spider,
+          -this.amplitudes[index],
+          this.velocities[index]
         )
         spider.enterState("idle", "crawl-left")
       })
 
       spider.onStateEnter("crawl-right", async () => {
-        if (spider.currAnim !== "crawl") spider.play("crawl")
         spider.flipX = true
 
-        await tween(
-          spider.pos.x,
-          spider.pos.x + this.amplitudes[index],
-          this.velocities[index],
-          (posX) => (spider.pos.x = posX),
-          easings.easeOutSine
-        )
+        await this.crawl(spider, this.amplitudes[index], this.velocities[index])
         spider.enterState("idle", "crawl-right")
       })
     }

@@ -30,7 +30,6 @@ load.sounds()
 const soundMap = {}
 
 const scenes = {
-  buffer: () => go("menu"),
   menu: () => {
     const level = new Level()
     level.drawBackground("forest-background")
@@ -205,6 +204,7 @@ const scenes = {
   },
   3: () => {
     if (soundMap.lavaAmbience) soundMap.lavaAmbience.paused = true
+    soundMap.windAmbience = play("strong-wind", { loop: true })
     setGravity(level3Config.gravity)
     const level3 = new Level()
     level3.drawBackground("sky-background-0")
@@ -229,8 +229,7 @@ const scenes = {
     const birds = new Birds(
       level3Config.birdPositions.map((birdPos) => birdPos()),
       level3Config.birdRanges,
-      level3Config.birdType,
-      0.5
+      level3Config.birdType
     )
 
     birds.setMovementPattern()
@@ -292,4 +291,4 @@ for (const key in scenes) {
   scene(key, scenes[key])
 }
 
-go("buffer")
+go("menu")

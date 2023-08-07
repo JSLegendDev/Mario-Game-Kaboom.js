@@ -48,6 +48,7 @@ export class Birds {
       })
 
       bird.onStateEnter("dive-attack-left", async () => {
+        if (!bird.isOffScreen()) play("dive", { volume: 0.05 })
         await tween(
           bird.pos,
           vec2(
@@ -73,6 +74,7 @@ export class Birds {
       })
 
       bird.onStateEnter("dive-attack-right", async () => {
+        if (!bird.isOffScreen()) play("dive", { volume: 0.05 })
         await tween(
           bird.pos,
           vec2(

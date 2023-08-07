@@ -267,6 +267,7 @@ export const load = {
     loadSound("swinging-axe", "./sounds/swinging-axe.mp3")
     loadSound("saw", "./sounds/saw.wav")
     loadSound("fireball", "./sounds/fireball.wav")
-    loadSound("strong-wind", "./sounds/strong-wind.mp3")
+    loadSound("strong-wind", "./sounds/strong-wind.wav")
+    loadSound("dive", "./sounds/dive.wav")
   },
 }

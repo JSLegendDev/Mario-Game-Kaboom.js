@@ -150,7 +150,7 @@ class UI {
     bgSoundManager.pauseAllSounds()
     add([rect(1280, 720), color(0, 0, 0)])
     add([
-      text("You Won!", { size: 50, font: "Round" }),
+      text("You Won! Thanks for Playing.", { size: 50, font: "Round" }),
       area(),
       anchor("center"),
       pos(center()),

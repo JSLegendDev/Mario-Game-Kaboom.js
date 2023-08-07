@@ -18,6 +18,7 @@ export class Player {
     posY,
     speed,
     jumpForce,
+    nbLives,
     currentLevelScene,
     isInTerminalScene
   ) {
@@ -26,6 +27,7 @@ export class Player {
     this.makePlayer(posX, posY)
     this.speed = speed
     this.jumpForce = jumpForce
+    this.lives = nbLives
     this.previousHeight = this.gameObj.pos.y
     this.setPlayerControls()
     this.update()
@@ -163,6 +165,7 @@ export class Player {
       }
 
       if (this.gameObj.pos.y > 1000) {
+        play("hit", { speed: 1.5 })
         this.respawnPlayer()
       }
     })

@@ -34,6 +34,16 @@ export class Birds {
     )
   }
 
+  async dive(bird, target, duration) {
+    await tween(
+      bird.pos,
+      target,
+      duration,
+      (pos) => (bird.pos = pos),
+      easings.easeInSine
+    )
+  }
+
   setMovementPattern() {
     for (const [index, bird] of this.birds.entries()) {
       const flyLeft = bird.onStateEnter("fly-left", async () => {
@@ -49,25 +59,21 @@ export class Birds {
 
       const diveAttackLeft = bird.onStateEnter("dive-attack-left", async () => {
         if (!bird.isOffScreen()) play("dive", { volume: 0.05 })
-        await tween(
-          bird.pos,
+        await this.dive(
+          bird,
           vec2(
             bird.pos.x - this.ranges[index],
             bird.pos.y + this.ranges[index]
           ),
-          0.5,
-          (pos) => (bird.pos = pos),
-          easings.easeInSine
+          0.5
         )
-        await tween(
-          bird.pos,
+        await this.dive(
+          bird,
           vec2(
             bird.pos.x - this.ranges[index],
             bird.pos.y - this.ranges[index]
           ),
-          0.5,
-          (pos) => (bird.pos = pos),
-          easings.easeInSine
+          0.5
         )
 
         bird.enterState("fly-right")
@@ -77,25 +83,21 @@ export class Birds {
         "dive-attack-right",
         async () => {
           if (!bird.isOffScreen()) play("dive", { volume: 0.05 })
-          await tween(
-            bird.pos,
+          await this.dive(
+            bird,
             vec2(
               bird.pos.x + this.ranges[index],
               bird.pos.y + this.ranges[index]
             ),
-            0.5,
-            (pos) => (bird.pos = pos),
-            easings.linear
+            0.5
           )
-          await tween(
-            bird.pos,
+          await this.dive(
+            bird,
             vec2(
               bird.pos.x + this.ranges[index],
               bird.pos.y - this.ranges[index]
             ),
-            0.5,
-            (pos) => (bird.pos = pos),
-            easings.linear
+            0.5
           )
 
           bird.enterState("fly-left")

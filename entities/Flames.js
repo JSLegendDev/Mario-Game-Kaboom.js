@@ -21,7 +21,7 @@ export class Flames {
 
   setMovementPattern() {
     for (const [index, flame] of this.flames.entries()) {
-      flame.onStateEnter("launch", async () => {
+      const launch = flame.onStateEnter("launch", async () => {
         if (!flame.isOffScreen()) play("fireball")
         await tween(
           flame.pos.y,
@@ -33,12 +33,12 @@ export class Flames {
         flame.enterState("rotate", "fall")
       })
 
-      flame.onStateEnter("rotate", (nextState) => {
+      const rotate = flame.onStateEnter("rotate", (nextState) => {
         flame.rotateBy(180)
         flame.enterState(nextState)
       })
 
-      flame.onStateEnter("fall", async () => {
+      const fall = flame.onStateEnter("fall", async () => {
         await tween(
           flame.pos.y,
           flame.pos.y + this.amplitudes[index],
@@ -47,6 +47,12 @@ export class Flames {
           easings.linear
         )
         flame.enterState("rotate", "launch")
+      })
+
+      onSceneLeave(() => {
+        launch.cancel()
+        rotate.cancel()
+        fall.cancel()
       })
     }
   }

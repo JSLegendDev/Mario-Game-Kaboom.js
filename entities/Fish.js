@@ -21,7 +21,7 @@ export class Fish {
 
   setMovementPattern() {
     for (const [index, fish] of this.fish.entries()) {
-      fish.onStateEnter("launch", async () => {
+      const launch = fish.onStateEnter("launch", async () => {
         await tween(
           fish.pos.y,
           fish.pos.y - this.amplitudes[index],
@@ -32,12 +32,12 @@ export class Fish {
         fish.enterState("rotate", "fall")
       })
 
-      fish.onStateEnter("rotate", (nextState) => {
+      const rotate = fish.onStateEnter("rotate", (nextState) => {
         fish.rotateBy(180)
         fish.enterState(nextState)
       })
 
-      fish.onStateEnter("fall", async () => {
+      const fall = fish.onStateEnter("fall", async () => {
         await tween(
           fish.pos.y,
           fish.pos.y + this.amplitudes[index],
@@ -46,6 +46,12 @@ export class Fish {
           easings.easeOutSine
         )
         fish.enterState("rotate", "launch")
+      })
+
+      onSceneLeave(() => {
+        launch.cancel()
+        rotate.cancel()
+        fall.cancel()
       })
     }
   }

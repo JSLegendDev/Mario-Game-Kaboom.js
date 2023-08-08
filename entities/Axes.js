@@ -37,14 +37,19 @@ export class Axes {
 
   setMovementPattern() {
     for (const [index, axe] of this.axes.entries()) {
-      axe.onStateEnter("swing-left", async () => {
+      const swingLeft = axe.onStateEnter("swing-left", async () => {
         await this.swing(axe, 90, this.swingTimes[index])
         axe.enterState("swing-right")
       })
 
-      axe.onStateEnter("swing-right", async () => {
+      const swingRight = axe.onStateEnter("swing-right", async () => {
         await this.swing(axe, -90, this.swingTimes[index])
         axe.enterState("swing-left")
+      })
+
+      onSceneLeave(() => {
+        swingLeft.cancel()
+        swingRight.cancel()
       })
     }
   }

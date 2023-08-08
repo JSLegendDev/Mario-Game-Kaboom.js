@@ -40,7 +40,7 @@ export class Spiders {
 
   setMovementPattern() {
     for (const [index, spider] of this.spiders.entries()) {
-      spider.onStateEnter("idle", async (previousState) => {
+      const idle = spider.onStateEnter("idle", async (previousState) => {
         if (spider.currAnim !== "idle") spider.play("idle")
 
         await new Promise((resolve) => {
@@ -59,7 +59,7 @@ export class Spiders {
         }
       })
 
-      spider.onStateEnter("crawl-left", async () => {
+      const crawlLeft = spider.onStateEnter("crawl-left", async () => {
         spider.flipX = false
 
         await this.crawl(
@@ -70,11 +70,17 @@ export class Spiders {
         spider.enterState("idle", "crawl-left")
       })
 
-      spider.onStateEnter("crawl-right", async () => {
+      const crawlRight = spider.onStateEnter("crawl-right", async () => {
         spider.flipX = true
 
         await this.crawl(spider, this.amplitudes[index], this.velocities[index])
         spider.enterState("idle", "crawl-right")
+      })
+
+      onSceneLeave(() => {
+        idle.cancel()
+        crawlLeft.cancel()
+        crawlRight.cancel()
       })
     }
   }

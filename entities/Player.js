@@ -69,6 +69,7 @@ export class Player {
 
   setPlayerControls() {
     onKeyDown("left", () => {
+      if (this.gameObj.paused) return
       if (this.gameObj.curAnim() !== "run") this.gameObj.play("run")
       this.gameObj.flipX = true
       if (!this.isRespawning) this.gameObj.move(-this.speed, 0)
@@ -76,6 +77,7 @@ export class Player {
     })
 
     onKeyDown("right", () => {
+      if (this.gameObj.paused) return
       if (this.gameObj.curAnim() !== "run") this.gameObj.play("run")
       this.gameObj.flipX = false
       if (!this.isRespawning) this.gameObj.move(this.speed, 0)
@@ -83,6 +85,7 @@ export class Player {
     })
 
     onKeyDown("space", () => {
+      if (this.gameObj.paused) return
       if (this.gameObj.isGrounded() && !this.isRespawning) {
         this.hasJumpedOnce = true
         this.gameObj.jump(this.jumpForce)
@@ -102,6 +105,7 @@ export class Player {
     })
 
     onKeyRelease(() => {
+      if (this.gameObj.paused) return
       if (isKeyReleased("right") || isKeyReleased("left")) {
         this.gameObj.play("idle")
         this.isMoving = false

@@ -37,9 +37,6 @@ const scenes = {
     UIManager.displayControlsMenu()
   },
   1: () => {
-    onKeyPress("p", () => {
-      get("*", { recursive: true }).forEach((obj) => (obj.paused = !obj.paused))
-    })
     bgSoundManager.addSound("water-ambience", {
       volume: 0.02,
       loop: true,
